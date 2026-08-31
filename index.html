@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammed Hawaj</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6vw;
+    }
+
+    h1 {
+      font-size: clamp(60px, 12vw, 180px);
+      line-height: .8;
+      letter-spacing: -0.07em;
+    }
+
+    .name span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(100px);
+      animation: reveal 0.8s forwards;
+    }
+
+    .name span:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    .subtitle {
+      margin-top: 40px;
+      font-size: 18px;
+      letter-spacing: .15em;
+      opacity: .6;
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <h1 class="name">
+      <span>MOHAMMED</span><br>
+      <span>HAWAJ</span>
+    </h1>
+
+    <p class="subtitle">
+      BRAND & GRAPHIC DESIGNER
+    </p>
+  </section>
+
+</body>
+</html>
