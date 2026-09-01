@@ -1,25 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Mohammed Hawaj — Graphic Designer</title>
 
   <meta
     name="description"
-    content="Portfolio of Mohammed Hawaj, a graphic designer focused on branding, visual identity, print, digital and environmental graphics."
-  />
+    content="Mohammed Hawaj is a graphic designer focused on brand identity, visual systems, retail graphics, packaging, social media and print design."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+
+    /* =========================================================
+       DESIGN SYSTEM
+       لاحقاً إذا بدنا نغير الألوان والخطوط منعدل هون فقط
+    ========================================================= */
+
     :root{
-      --bg:#0a0a0a;
-      --paper:#f2efe8;
-      --soft:#aaa69e;
-      --line:rgba(255,255,255,.14);
-      --line-dark:rgba(0,0,0,.18);
-      --accent:#6e1f2a;
+      --black:#090909;
+      --black-soft:#121212;
+
+      --cream:#F2EFE8;
+      --cream-soft:#E7E3D9;
+
+      --gray:#908C84;
+      --gray-dark:#69665F;
+
+      --accent:#6E1F2A;
+
+      --line-light:rgba(255,255,255,.13);
+      --line-dark:rgba(0,0,0,.17);
+
+      --display:"Space Grotesk", Arial, sans-serif;
+      --body:"Manrope", Arial, sans-serif;
     }
+
+
+    /* =========================================================
+       RESET
+    ========================================================= */
 
     *{
       margin:0;
@@ -32,9 +62,9 @@
     }
 
     body{
-      background:var(--bg);
-      color:var(--paper);
-      font-family:Arial, Helvetica, sans-serif;
+      background:var(--black);
+      color:var(--cream);
+      font-family:var(--body);
       overflow-x:hidden;
     }
 
@@ -43,450 +73,1011 @@
       text-decoration:none;
     }
 
-    ::selection{
-      background:var(--accent);
-      color:white;
+    img{
+      display:block;
+      max-width:100%;
     }
 
-    /* CURSOR */
+    ::selection{
+      background:var(--accent);
+      color:#fff;
+    }
+
+
+    /* =========================================================
+       LOADER
+    ========================================================= */
+
+    .loader{
+      position:fixed;
+      inset:0;
+
+      background:var(--black);
+
+      z-index:10000;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      transition:
+        opacity .7s ease,
+        visibility .7s ease;
+    }
+
+    .loader.hide{
+      opacity:0;
+      visibility:hidden;
+    }
+
+    .loader-inner{
+      overflow:hidden;
+    }
+
+    .loader-text{
+      font-family:var(--display);
+
+      font-size:clamp(26px,4vw,60px);
+
+      font-weight:600;
+
+      letter-spacing:-.05em;
+
+      transform:translateY(120%);
+
+      animation:
+        loaderReveal
+        .8s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+    }
+
+
+    /* =========================================================
+       CUSTOM CURSOR
+    ========================================================= */
 
     .cursor{
       position:fixed;
-      width:12px;
-      height:12px;
+
+      width:11px;
+      height:11px;
+
+      background:#fff;
+
       border-radius:50%;
-      background:white;
+
       pointer-events:none;
+
       z-index:9999;
-      transform:translate(-50%,-50%);
+
       mix-blend-mode:difference;
+
+      transform:translate(-50%,-50%);
+
       transition:
         width .25s ease,
         height .25s ease;
     }
 
-    .cursor.big{
+    .cursor.active{
       width:64px;
       height:64px;
     }
 
-    /* NAV */
+
+    /* =========================================================
+       NAV
+    ========================================================= */
 
     .nav{
       position:absolute;
+
       top:0;
       left:0;
+
       width:100%;
-      padding:32px 4vw;
+
+      padding:34px 4vw;
+
       display:flex;
-      justify-content:space-between;
       align-items:center;
-      z-index:20;
-      font-size:11px;
-      letter-spacing:.16em;
+      justify-content:space-between;
+
+      z-index:50;
+
+      font-size:10px;
+
+      letter-spacing:.18em;
+
       text-transform:uppercase;
     }
 
     .nav-name{
-      font-weight:700;
+      font-weight:800;
     }
 
     .nav-links{
       display:flex;
-      gap:30px;
+      gap:32px;
     }
 
     .nav-links a{
-      opacity:.7;
-      transition:.25s ease;
+      opacity:.65;
+
+      transition:opacity .25s ease;
     }
 
     .nav-links a:hover{
       opacity:1;
     }
 
-    /* HERO */
+
+    /* =========================================================
+       HERO
+    ========================================================= */
 
     .hero{
       min-height:100vh;
+
       position:relative;
+
       overflow:hidden;
+
       display:flex;
       align-items:center;
-      padding:110px 4vw 60px;
+
+      padding:
+        120px
+        4vw
+        80px;
     }
 
-    .hero-wrap{
+    .hero-content{
       width:100%;
+
       position:relative;
-      z-index:3;
+
+      z-index:5;
     }
 
-    .hero-line{
+    .hero-mask{
       overflow:hidden;
     }
 
-    .hero-line h1{
-      font-size:clamp(72px,12.5vw,220px);
-      line-height:.78;
-      letter-spacing:-.075em;
-      font-weight:800;
+    .hero-mask h1{
+      font-family:var(--display);
+
+      font-size:clamp(72px,12vw,205px);
+
+      font-weight:700;
+
+      line-height:.79;
+
+      letter-spacing:-.078em;
+
       transform:translateY(115%);
-      animation:heroUp 1.15s cubic-bezier(.16,1,.3,1) forwards;
+
+      animation:
+        heroReveal
+        1.15s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
     }
 
-    .hero-line:nth-child(2) h1{
-      animation-delay:.18s;
+    .hero-mask:nth-child(2) h1{
+      animation-delay:.16s;
     }
 
     .hero-meta{
-      margin-top:44px;
+      margin-top:42px;
+
       display:flex;
-      gap:18px;
       align-items:center;
+
+      gap:17px;
+
       flex-wrap:wrap;
-      font-size:12px;
-      letter-spacing:.15em;
+
       text-transform:uppercase;
-      opacity:0;
-      animation:fadeUp .8s ease 1.15s forwards;
-    }
 
-    .hero-rule{
-      width:40px;
-      height:1px;
-      background:#777;
-    }
+      font-size:11px;
 
-    .rotating{
-      color:#777;
-      min-width:170px;
-      font-weight:600;
-    }
-
-    .hero-foot{
-      position:absolute;
-      left:4vw;
-      right:4vw;
-      bottom:40px;
-      display:flex;
-      justify-content:space-between;
-      font-size:10px;
       letter-spacing:.16em;
-      text-transform:uppercase;
+
       opacity:0;
-      animation:fadeUp .8s ease 1.45s forwards;
+
+      animation:
+        fadeUp
+        .8s
+        ease
+        1.15s
+        forwards;
     }
 
-    .scroll-cue{
-      display:flex;
-      align-items:center;
-      gap:12px;
+    .hero-role{
+      font-weight:700;
     }
 
-    .scroll-line{
-      width:55px;
+    .hero-divider{
+      width:42px;
       height:1px;
-      background:white;
-      transform-origin:left;
-      animation:pulse 1.8s ease-in-out infinite;
+
+      background:#747474;
     }
 
-    .orbit{
+    .hero-rotate{
+      min-width:190px;
+
+      color:#797979;
+
+      font-weight:700;
+    }
+
+
+    /* =========================================================
+       HERO BACKGROUND
+    ========================================================= */
+
+    .hero-object{
       position:absolute;
+
       width:430px;
       height:430px;
-      right:-120px;
-      top:18%;
-      border:1px solid rgba(255,255,255,.14);
+
+      right:-110px;
+      top:20%;
+
+      border:
+        1px solid
+        rgba(255,255,255,.13);
+
       border-radius:50%;
+
       transition:transform .18s ease-out;
     }
 
-    .orbit:before,
-    .orbit:after{
+    .hero-object::before,
+    .hero-object::after{
       content:"";
+
       position:absolute;
+
       border-radius:50%;
-      border:1px solid rgba(255,255,255,.09);
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
     }
 
-    .orbit:before{ inset:55px; }
-    .orbit:after{ inset:120px; }
+    .hero-object::before{
+      inset:55px;
+    }
 
-    /* MARQUEE */
+    .hero-object::after{
+      inset:120px;
+    }
+
+    .hero-dot{
+      position:absolute;
+
+      width:13px;
+      height:13px;
+
+      right:7%;
+      bottom:15%;
+
+      background:var(--cream);
+
+      border-radius:50%;
+    }
+
+
+    /* =========================================================
+       HERO BOTTOM
+    ========================================================= */
+
+    .hero-bottom{
+      position:absolute;
+
+      left:4vw;
+      right:4vw;
+      bottom:42px;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      font-size:10px;
+
+      letter-spacing:.16em;
+
+      text-transform:uppercase;
+
+      opacity:0;
+
+      animation:
+        fadeUp
+        .8s
+        ease
+        1.4s
+        forwards;
+    }
+
+    .scroll-wrap{
+      display:flex;
+      align-items:center;
+
+      gap:14px;
+    }
+
+    .scroll-line{
+      width:60px;
+      height:1px;
+
+      background:var(--cream);
+
+      transform-origin:left;
+
+      animation:
+        lineMove
+        1.7s
+        ease-in-out
+        infinite;
+    }
+
+
+    /* =========================================================
+       MARQUEE
+    ========================================================= */
 
     .marquee{
-      background:var(--paper);
-      color:var(--bg);
+      background:var(--cream);
+      color:var(--black);
+
       overflow:hidden;
-      border-bottom:1px solid var(--line-dark);
+
+      border-bottom:
+        1px solid
+        var(--line-dark);
     }
 
     .marquee-track{
       display:flex;
+
       width:max-content;
-      animation:marquee 22s linear infinite;
+
+      animation:
+        marquee
+        24s
+        linear
+        infinite;
     }
 
     .marquee span{
-      padding:18px 28px;
-      font-size:12px;
-      font-weight:600;
-      letter-spacing:.15em;
-      text-transform:uppercase;
+      padding:20px 30px;
+
       white-space:nowrap;
-    }
 
-    /* WORK PLACEHOLDER */
+      font-size:11px;
 
-    .work{
-      background:var(--paper);
-      color:var(--bg);
-      padding:115px 4vw 130px;
-    }
+      letter-spacing:.15em;
 
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding-bottom:24px;
-      border-bottom:1px solid var(--line-dark);
-      font-size:10px;
-      letter-spacing:.17em;
       text-transform:uppercase;
-    }
 
-    .empty-work{
-      min-height:420px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:40px;
-      border-bottom:1px solid var(--line-dark);
-    }
-
-    .empty-work h2{
-      max-width:900px;
-      font-size:clamp(48px,7vw,118px);
-      line-height:.9;
-      letter-spacing:-.06em;
       font-weight:700;
     }
 
-    .empty-work p{
-      max-width:300px;
-      color:#74716c;
-      line-height:1.6;
-      font-size:13px;
+
+    /* =========================================================
+       GRAPHIC WORK
+    ========================================================= */
+
+    .work{
+      background:var(--cream);
+      color:var(--black);
+
+      padding:
+        120px
+        4vw
+        135px;
     }
 
-    /* ABOUT */
+    .section-top{
+      padding-bottom:23px;
+
+      border-bottom:
+        1px solid
+        var(--line-dark);
+
+      display:flex;
+      justify-content:space-between;
+
+      font-size:10px;
+
+      letter-spacing:.17em;
+
+      text-transform:uppercase;
+    }
+
+    .work-placeholder{
+      min-height:440px;
+
+      border-bottom:
+        1px solid
+        var(--line-dark);
+
+      display:grid;
+
+      grid-template-columns:
+        1.55fr
+        .45fr;
+
+      gap:50px;
+
+      align-items:center;
+    }
+
+    .work-placeholder h2{
+      font-family:var(--display);
+
+      font-size:
+        clamp(48px,7.2vw,120px);
+
+      line-height:.89;
+
+      letter-spacing:-.065em;
+
+      font-weight:600;
+    }
+
+    .work-placeholder p{
+      max-width:300px;
+
+      font-size:13px;
+
+      line-height:1.65;
+
+      color:#726E67;
+    }
+
+    .projects{
+      display:none;
+    }
+
+
+    /* =========================================================
+       ABOUT MOTION TITLE
+    ========================================================= */
 
     .about{
-      padding:150px 4vw;
+      padding:
+        145px
+        4vw;
+
+      background:var(--black);
+    }
+
+    .motion-title{
+      overflow:hidden;
+
+      margin-bottom:85px;
+    }
+
+    .motion-row{
+      font-family:var(--display);
+
+      font-size:
+        clamp(70px,11vw,185px);
+
+      line-height:.78;
+
+      letter-spacing:-.075em;
+
+      font-weight:600;
+
+      white-space:nowrap;
+    }
+
+    .motion-left{
+      transform:translateX(-105%);
+
+      transition:
+        transform
+        1.15s
+        cubic-bezier(.16,1,.3,1);
+    }
+
+    .motion-right{
+      text-align:right;
+
+      transform:translateX(105%);
+
+      transition:
+        transform
+        1.15s
+        cubic-bezier(.16,1,.3,1);
+    }
+
+    .motion-title.visible .motion-left,
+    .motion-title.visible .motion-right{
+      transform:translateX(0);
+    }
+
+
+    /* =========================================================
+       ABOUT BODY
+    ========================================================= */
+
+    .about-content{
       display:grid;
-      grid-template-columns:.72fr 1.4fr;
+
+      grid-template-columns:
+        .65fr
+        1.45fr;
+
       gap:8vw;
     }
 
-    .about-label{
+    .eyebrow{
       font-size:10px;
-      letter-spacing:.18em;
+
+      letter-spacing:.19em;
+
       text-transform:uppercase;
-      color:#717171;
+
+      color:#6d6d6d;
     }
 
-    .about-content h2{
-      font-size:clamp(40px,5.6vw,92px);
-      line-height:.98;
-      letter-spacing:-.055em;
+    .about-main h2{
+      font-family:var(--display);
+
+      max-width:1050px;
+
+      font-size:
+        clamp(38px,5.1vw,82px);
+
+      line-height:.99;
+
+      letter-spacing:-.053em;
+
       font-weight:500;
-      max-width:1100px;
     }
 
-    .about-content h2 span{
-      color:#676767;
+    .about-main h2 span{
+      color:#6e6e6e;
     }
 
     .about-grid{
-      margin-top:75px;
+      margin-top:70px;
+
       display:grid;
-      grid-template-columns:minmax(240px,380px) 1fr;
-      gap:55px;
+
+      grid-template-columns:
+        minmax(280px,420px)
+        minmax(260px,560px);
+
+      gap:58px;
+
       align-items:start;
     }
 
-    .portrait-wrap{
+
+    /* =========================================================
+       PORTRAIT SLIDER
+    ========================================================= */
+
+    .portrait{
+      aspect-ratio:4 / 5;
+
       position:relative;
+
       overflow:hidden;
-      aspect-ratio:4/5;
+
       background:#151515;
     }
 
-    .portrait-wrap img{
+    .portrait-slider{
+      position:absolute;
+      inset:0;
+    }
+
+    .portrait-slide{
+      position:absolute;
+
+      inset:0;
+
       width:100%;
       height:100%;
+
       object-fit:cover;
-      object-position:center top;
-      filter:grayscale(1) contrast(1.02);
+
+      object-position:center center;
+
+      opacity:0;
+
+      filter:
+        grayscale(100%)
+        contrast(1.03);
+
+      transform:scale(1.04);
+
       transition:
-        filter .7s cubic-bezier(.16,1,.3,1),
-        transform 1s cubic-bezier(.16,1,.3,1);
+        opacity 1s ease,
+        transform 4.5s ease,
+        filter .7s ease;
     }
 
-    .portrait-wrap:hover img{
+    .portrait-slide.active{
+      opacity:1;
+
+      transform:scale(1);
+    }
+
+    .portrait:hover .portrait-slide{
       filter:grayscale(0);
-      transform:scale(1.025);
     }
 
-    .about-copy{
-      max-width:600px;
-      color:#a0a0a0;
-      font-size:16px;
-      line-height:1.7;
+    .portrait-tag{
+      position:absolute;
+
+      left:18px;
+      bottom:18px;
+
+      z-index:5;
+
+      padding:9px 12px;
+
+      background:rgba(0,0,0,.72);
+
+      backdrop-filter:blur(8px);
+
+      font-size:9px;
+
+      letter-spacing:.16em;
+
+      text-transform:uppercase;
     }
 
-    .about-copy strong{
-      color:var(--paper);
-      font-weight:500;
+    .portrait-counter{
+      position:absolute;
+
+      top:18px;
+      right:18px;
+
+      z-index:5;
+
+      padding:8px 11px;
+
+      background:rgba(0,0,0,.62);
+
+      backdrop-filter:blur(8px);
+
+      font-size:9px;
+
+      letter-spacing:.16em;
     }
 
-    /* SERVICES */
+
+    /* =========================================================
+       ABOUT TEXT
+    ========================================================= */
+
+    .about-text{
+      color:#999;
+
+      font-size:15px;
+
+      line-height:1.75;
+    }
+
+    .about-text strong{
+      color:var(--cream);
+
+      font-weight:600;
+    }
+
+
+    /* =========================================================
+       EXPERTISE
+    ========================================================= */
 
     .services{
-      padding:0 4vw 140px;
+      padding:
+        0
+        4vw
+        145px;
+
+      background:var(--black);
     }
 
     .service{
-      border-top:1px solid var(--line);
-      padding:34px 0;
+      min-height:105px;
+
+      border-top:
+        1px solid
+        var(--line-light);
+
       display:grid;
-      grid-template-columns:70px 1fr auto;
+
+      grid-template-columns:
+        75px
+        1fr
+        auto;
+
       align-items:center;
     }
 
     .service:last-child{
-      border-bottom:1px solid var(--line);
+      border-bottom:
+        1px solid
+        var(--line-light);
     }
 
     .service-num{
-      color:#656565;
       font-size:10px;
+
+      color:#646464;
     }
 
     .service h3{
-      font-size:clamp(27px,3vw,52px);
+      font-family:var(--display);
+
+      font-size:
+        clamp(25px,3vw,51px);
+
       font-weight:500;
+
       letter-spacing:-.04em;
     }
 
     .service small{
       color:#676767;
-      font-size:10px;
-      letter-spacing:.12em;
+
+      font-size:9px;
+
+      letter-spacing:.15em;
+
       text-transform:uppercase;
     }
 
-    /* CONTACT */
+
+    /* =========================================================
+       ARCHITECTURE
+       مخفي حالياً وجاهز للمستقبل
+    ========================================================= */
+
+    .architecture-section{
+      display:none;
+
+      background:#DDD9CF;
+
+      color:#111;
+
+      padding:
+        120px
+        4vw;
+    }
+
+    .architecture-title{
+      font-family:var(--display);
+
+      font-size:
+        clamp(55px,9vw,150px);
+
+      letter-spacing:-.07em;
+
+      line-height:.85;
+    }
+
+
+    /* =========================================================
+       CONTACT
+    ========================================================= */
 
     .contact{
-      background:var(--paper);
-      color:var(--bg);
-      padding:100px 4vw 38px;
+      background:var(--cream);
+      color:var(--black);
+
+      padding:
+        110px
+        4vw
+        38px;
+
+      overflow:hidden;
     }
 
-    .contact-label{
-      font-size:10px;
-      letter-spacing:.17em;
-      text-transform:uppercase;
+    .contact-motion{
+      padding:
+        30px
+        0
+        100px;
+
+      overflow:hidden;
     }
 
-    .contact-main{
-      padding:110px 0;
+    .contact-line{
+      font-family:var(--display);
+
+      font-size:
+        clamp(64px,10.5vw,175px);
+
+      line-height:.78;
+
+      letter-spacing:-.075em;
+
+      font-weight:600;
+
+      white-space:nowrap;
     }
 
-    .contact-main p{
-      color:#77736d;
-      font-size:11px;
-      letter-spacing:.15em;
-      text-transform:uppercase;
+    .contact-left{
+      transform:translateX(-110%);
+
+      transition:
+        transform
+        1.15s
+        cubic-bezier(.16,1,.3,1);
+    }
+
+    .contact-right{
+      text-align:right;
+
+      transform:translateX(110%);
+
+      transition:
+        transform
+        1.15s
+        cubic-bezier(.16,1,.3,1);
+    }
+
+    .contact-motion.visible .contact-left,
+    .contact-motion.visible .contact-right{
+      transform:translateX(0);
+    }
+
+
+    /* =========================================================
+       EMAIL
+    ========================================================= */
+
+    .email-area{
+      padding-bottom:90px;
+    }
+
+    .email-area p{
       margin-bottom:22px;
+
+      font-size:10px;
+
+      letter-spacing:.18em;
+
+      text-transform:uppercase;
+
+      color:#76716A;
     }
 
-    .contact-main a{
+    .email-link{
       display:inline-block;
-      font-size:clamp(60px,10vw,170px);
-      line-height:.83;
-      letter-spacing:-.07em;
-      font-weight:800;
-      border-bottom:clamp(3px,.45vw,7px) solid var(--bg);
+
+      font-family:var(--display);
+
+      font-size:
+        clamp(45px,7vw,120px);
+
+      line-height:.9;
+
+      letter-spacing:-.06em;
+
+      font-weight:600;
+
+      border-bottom:
+        clamp(2px,.4vw,6px)
+        solid
+        var(--black);
+
       transition:opacity .3s ease;
     }
 
-    .contact-main a:hover{
+    .email-link:hover{
       opacity:.45;
     }
 
+
+    /* =========================================================
+       SOCIALS
+    ========================================================= */
+
     .socials{
-      border-top:1px solid var(--line-dark);
-      border-bottom:1px solid var(--line-dark);
+      border-top:
+        1px solid
+        var(--line-dark);
     }
 
     .social{
       min-height:78px;
+
+      border-bottom:
+        1px solid
+        var(--line-dark);
+
       display:grid;
-      grid-template-columns:120px 1fr auto;
+
+      grid-template-columns:
+        120px
+        1fr
+        30px;
+
       align-items:center;
-      border-bottom:1px solid var(--line-dark);
+
       transition:
         background .35s ease,
         color .35s ease,
         padding .35s ease;
     }
 
-    .social:last-child{
-      border-bottom:none;
-    }
-
     .social small{
-      color:#77736d;
-      font-size:10px;
-      letter-spacing:.14em;
+      font-size:9px;
+
+      letter-spacing:.15em;
+
       text-transform:uppercase;
+
+      color:#77726A;
     }
 
     .social strong{
+      font-size:16px;
+
       font-weight:500;
-      font-size:18px;
     }
 
     .social:hover{
-      background:var(--bg);
-      color:var(--paper);
-      padding:0 20px;
+      background:var(--black);
+
+      color:var(--cream);
+
+      padding:
+        0
+        20px;
     }
 
     .social:hover small{
-      color:#aaa;
+      color:#999;
     }
 
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
     .footer{
-      padding-top:30px;
+      padding-top:28px;
+
       display:flex;
       justify-content:space-between;
+
+      gap:20px;
+
       flex-wrap:wrap;
-      gap:15px;
+
       font-size:9px;
+
       letter-spacing:.14em;
+
       text-transform:uppercase;
     }
 
-    /* REVEALS */
+
+    /* =========================================================
+       REVEALS
+    ========================================================= */
 
     .reveal{
       opacity:0;
+
       transform:translateY(55px);
+
       transition:
         opacity .9s cubic-bezier(.16,1,.3,1),
         transform .9s cubic-bezier(.16,1,.3,1);
@@ -494,31 +1085,48 @@
 
     .reveal.visible{
       opacity:1;
+
       transform:none;
     }
 
-    /* ANIMATIONS */
 
-    @keyframes heroUp{
-      to{ transform:translateY(0); }
+    /* =========================================================
+       ANIMATIONS
+    ========================================================= */
+
+    @keyframes loaderReveal{
+      to{
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes heroReveal{
+      to{
+        transform:translateY(0);
+      }
     }
 
     @keyframes fadeUp{
+
       from{
         opacity:0;
         transform:translateY(18px);
       }
+
       to{
         opacity:1;
-        transform:none;
+        transform:translateY(0);
       }
     }
 
-    @keyframes pulse{
-      0%,100%{
+    @keyframes lineMove{
+
+      0%,
+      100%{
         transform:scaleX(.25);
-        opacity:.3;
+        opacity:.35;
       }
+
       50%{
         transform:scaleX(1);
         opacity:1;
@@ -526,11 +1134,20 @@
     }
 
     @keyframes marquee{
-      from{ transform:translateX(0); }
-      to{ transform:translateX(-50%); }
+
+      from{
+        transform:translateX(0);
+      }
+
+      to{
+        transform:translateX(-50%);
+      }
     }
 
-    /* MOBILE */
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
 
     @media(max-width:800px){
 
@@ -539,11 +1156,13 @@
       }
 
       .nav{
-        padding:24px 22px;
+        padding:
+          25px
+          22px;
       }
 
       .nav-links{
-        gap:15px;
+        gap:16px;
       }
 
       .nav-links a:first-child{
@@ -551,58 +1170,97 @@
       }
 
       .hero{
-        padding:100px 22px 55px;
+        padding:
+          105px
+          22px
+          65px;
       }
 
-      .hero-line h1{
-        font-size:clamp(60px,18vw,105px);
+      .hero-mask h1{
+        font-size:
+          clamp(59px,18vw,104px);
+
         line-height:.82;
       }
 
-      .hero-foot{
+      .hero-meta{
+        margin-top:35px;
+      }
+
+      .hero-object{
+        width:270px;
+        height:270px;
+
+        right:-130px;
+        top:29%;
+      }
+
+      .hero-bottom{
         left:22px;
         right:22px;
       }
 
-      .orbit{
-        width:260px;
-        height:260px;
-        right:-120px;
-        top:28%;
-      }
-
       .work{
-        padding:85px 22px 100px;
+        padding:
+          85px
+          22px
+          95px;
       }
 
-      .empty-work{
-        min-height:390px;
-        flex-direction:column;
-        align-items:flex-start;
-        justify-content:center;
+      .work-placeholder{
+        min-height:410px;
+
+        grid-template-columns:1fr;
+
+        gap:30px;
+
+        align-content:center;
       }
 
       .about{
+        padding:
+          95px
+          22px;
+      }
+
+      .motion-title{
+        margin-bottom:70px;
+      }
+
+      .motion-row{
+        font-size:
+          clamp(62px,19vw,100px);
+      }
+
+      .about-content{
         grid-template-columns:1fr;
-        padding:100px 22px;
+
+        gap:25px;
       }
 
       .about-grid{
         grid-template-columns:1fr;
+
         gap:35px;
+
         margin-top:50px;
       }
 
-      .portrait-wrap{
-        max-width:420px;
+      .portrait{
+        max-width:430px;
       }
 
       .services{
-        padding:0 22px 100px;
+        padding:
+          0
+          22px
+          100px;
       }
 
       .service{
-        grid-template-columns:34px 1fr;
+        grid-template-columns:
+          35px
+          1fr;
       }
 
       .service small{
@@ -610,19 +1268,49 @@
       }
 
       .contact{
-        padding:80px 22px 35px;
+        padding:
+          80px
+          22px
+          32px;
       }
 
-      .contact-main{
-        padding:90px 0;
+      .contact-motion{
+        padding-bottom:80px;
+      }
+
+      .contact-line{
+        white-space:normal;
+
+        font-size:
+          clamp(58px,18vw,100px);
       }
 
       .social{
-        grid-template-columns:95px 1fr auto;
+        grid-template-columns:
+          90px
+          1fr
+          20px;
       }
+
+      .social strong{
+        font-size:13px;
+
+        overflow-wrap:anywhere;
+      }
+
+      .email-link{
+        overflow-wrap:anywhere;
+      }
+
     }
 
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+
     @media(prefers-reduced-motion:reduce){
+
       *,
       *::before,
       *::after{
@@ -630,358 +1318,1190 @@
         transition:none!important;
       }
 
-      .hero-line h1,
+      .hero-mask h1,
       .hero-meta,
-      .hero-foot,
-      .reveal{
+      .hero-bottom,
+      .reveal,
+      .motion-left,
+      .motion-right,
+      .contact-left,
+      .contact-right{
         opacity:1!important;
         transform:none!important;
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <div class="cursor" id="cursor"></div>
 
-  <section class="hero" id="home">
+  <!-- LOADER -->
+
+  <div
+    class="loader"
+    id="loader">
+
+    <div class="loader-inner">
+
+      <div class="loader-text">
+        MH / 2026
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CURSOR -->
+
+  <div
+    class="cursor"
+    id="cursor">
+  </div>
+
+
+  <!-- =======================================================
+       HERO
+  ======================================================== -->
+
+  <section
+    class="hero"
+    id="home">
+
 
     <nav class="nav">
-      <div class="nav-name">Mohammed Hawaj</div>
+
+
+      <div class="nav-name">
+        Mohammed Hawaj
+      </div>
+
 
       <div class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+
+        <a href="#work">
+          Work
+        </a>
+
+        <a href="#about">
+          About
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
       </div>
+
+
     </nav>
 
-    <div class="orbit" id="orbit"></div>
 
-    <div class="hero-wrap">
-      <div class="hero-line">
-        <h1>MOHAMMED</h1>
+    <div
+      class="hero-object"
+      id="heroObject">
+    </div>
+
+
+    <div class="hero-dot"></div>
+
+
+    <div class="hero-content">
+
+
+      <div class="hero-mask">
+
+        <h1>
+          MOHAMMED
+        </h1>
+
       </div>
 
-      <div class="hero-line">
-        <h1>HAWAJ</h1>
+
+      <div class="hero-mask">
+
+        <h1>
+          HAWAJ
+        </h1>
+
       </div>
+
 
       <div class="hero-meta">
-        <span>Graphic Designer</span>
-        <div class="hero-rule"></div>
-        <span class="rotating" id="rotatingWord">BRANDING</span>
+
+        <span class="hero-role">
+          Graphic Designer
+        </span>
+
+
+        <div class="hero-divider"></div>
+
+
+        <span
+          class="hero-rotate"
+          id="rotatingWord">
+
+          BRANDING
+
+        </span>
+
       </div>
+
+
     </div>
 
-    <div class="hero-foot">
-      <span>Portfolio © 2026</span>
 
-      <div class="scroll-cue">
-        <span>Scroll</span>
+    <div class="hero-bottom">
+
+      <span>
+        Portfolio © 2026
+      </span>
+
+
+      <div class="scroll-wrap">
+
+        <span>
+          Scroll
+        </span>
+
         <div class="scroll-line"></div>
+
       </div>
+
     </div>
+
 
   </section>
 
+
+  <!-- =======================================================
+       MARQUEE
+  ======================================================== -->
+
   <div class="marquee">
+
     <div class="marquee-track">
-      <span>Brand Identity ✦</span>
-      <span>Graphic Design ✦</span>
-      <span>Visual Identity ✦</span>
-      <span>Print Design ✦</span>
-      <span>Environmental Graphics ✦</span>
 
       <span>Brand Identity ✦</span>
       <span>Graphic Design ✦</span>
-      <span>Visual Identity ✦</span>
+      <span>Retail Graphics ✦</span>
+      <span>Packaging ✦</span>
+      <span>Social Media ✦</span>
       <span>Print Design ✦</span>
-      <span>Environmental Graphics ✦</span>
+
+      <span>Brand Identity ✦</span>
+      <span>Graphic Design ✦</span>
+      <span>Retail Graphics ✦</span>
+      <span>Packaging ✦</span>
+      <span>Social Media ✦</span>
+      <span>Print Design ✦</span>
+
     </div>
+
   </div>
 
-  <section class="work" id="work">
 
-    <div class="section-head">
-      <span>Selected Work</span>
-      <span>Coming Soon</span>
+  <!-- =======================================================
+       GRAPHIC DESIGN WORK
+  ======================================================== -->
+
+  <section
+    class="work"
+    id="work">
+
+
+    <div class="section-top">
+
+      <span>
+        Selected Graphic Work
+      </span>
+
+      <span>
+        Projects / 2026
+      </span>
+
     </div>
 
-    <div class="empty-work reveal">
+
+    <div class="work-placeholder reveal">
+
       <h2>
-        SELECTED PROJECTS<br>
-        ARE COMING NEXT.
+        SELECTED<br>
+        PROJECTS.
       </h2>
 
       <p>
-        This section is prepared for curated case studies across branding,
-        retail graphics, print and visual identity.
+        A curated collection of brand identity,
+        retail graphics, packaging, social media
+        and print projects will live here.
       </p>
+
     </div>
+
+
+    <div class="projects">
+    </div>
+
 
   </section>
 
-  <section class="about" id="about">
 
-    <div class="about-label reveal">
-      About
-    </div>
+  <!-- =======================================================
+       ABOUT
+  ======================================================== -->
 
-    <div class="about-content">
+  <section
+    class="about"
+    id="about">
 
-      <h2 class="reveal">
-        I CREATE
-        <span>VISUAL SYSTEMS</span>
-        THAT FEEL CLEAR,
-        DISTINCTIVE AND
-        BUILT FOR REAL USE.
-      </h2>
 
-      <div class="about-grid">
+    <div
+      class="motion-title observe-motion">
 
-        <div class="portrait-wrap reveal">
-          <img
-            src="profile.jpg"
-            alt="Portrait of Mohammed Hawaj"
-          >
-        </div>
 
-        <div class="about-copy reveal">
-          <p>
-            <strong>Mohammed Hawaj is a graphic designer</strong>
-            focused on building clear and distinctive visual systems
-            across branding, print, digital and spatial applications.
-            His work combines strong typography, thoughtful composition
-            and practical design thinking to create identities that feel
-            contemporary, memorable and ready for real-world use.
-          </p>
-        </div>
+      <div
+        class="motion-row motion-left">
+
+        ABOUT
 
       </div>
 
+
+      <div
+        class="motion-row motion-right">
+
+        ME
+
+      </div>
+
+
     </div>
 
+
+    <div class="about-content">
+
+
+      <div
+        class="eyebrow reveal">
+
+        Profile / 01
+
+      </div>
+
+
+      <div class="about-main">
+
+
+        <h2 class="reveal">
+
+          I CREATE
+
+          <span>
+            VISUAL SYSTEMS
+          </span>
+
+          THAT FEEL CLEAR,
+          DISTINCTIVE AND
+          BUILT FOR REAL USE.
+
+        </h2>
+
+
+        <div class="about-grid">
+
+
+          <!-- IMAGE SLIDER -->
+
+          <div
+            class="portrait reveal"
+            id="portrait">
+
+
+            <div class="portrait-slider">
+
+
+              <img
+                src="profile-1.jpg"
+                class="portrait-slide active"
+                alt="Mohammed Hawaj">
+
+
+              <img
+                src="profile-2.jpg"
+                class="portrait-slide"
+                alt="Mohammed Hawaj">
+
+
+              <img
+                src="profile-3.jpg"
+                class="portrait-slide"
+                alt="Mohammed Hawaj">
+
+
+            </div>
+
+
+            <span class="portrait-tag">
+              Mohammed Hawaj
+            </span>
+
+
+            <span
+              class="portrait-counter"
+              id="portraitCounter">
+
+              01 / 03
+
+            </span>
+
+
+          </div>
+
+
+          <!-- ABOUT TEXT -->
+
+          <div
+            class="about-text reveal">
+
+
+            <p>
+
+              <strong>
+                Mohammed Hawaj is a graphic designer
+              </strong>
+
+              focused on building clear and distinctive
+              visual systems across branding, print,
+              digital and spatial applications.
+
+              His work combines strong typography,
+              thoughtful composition and practical
+              design thinking to create identities
+              that feel contemporary, memorable and
+              ready for real-world use.
+
+            </p>
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
   </section>
+
+
+  <!-- =======================================================
+       EXPERTISE
+  ======================================================== -->
 
   <section class="services">
 
-    <div class="service reveal">
-      <span class="service-num">01</span>
-      <h3>Brand Identity</h3>
-      <small>Identity / Systems / Applications</small>
-    </div>
 
     <div class="service reveal">
-      <span class="service-num">02</span>
-      <h3>Graphic Design</h3>
-      <small>Print / Digital / Campaigns</small>
+
+      <span class="service-num">
+        01
+      </span>
+
+      <h3>
+        Brand Identity
+      </h3>
+
+      <small>
+        Identity / Systems / Applications
+      </small>
+
     </div>
 
-    <div class="service reveal">
-      <span class="service-num">03</span>
-      <h3>Retail Graphics</h3>
-      <small>Signage / Walls / In-store</small>
-    </div>
 
     <div class="service reveal">
-      <span class="service-num">04</span>
-      <h3>Visual Systems</h3>
-      <small>Typography / Layout / Direction</small>
+
+      <span class="service-num">
+        02
+      </span>
+
+      <h3>
+        Retail & Environmental Graphics
+      </h3>
+
+      <small>
+        Signage / Walls / In-store
+      </small>
+
     </div>
+
+
+    <div class="service reveal">
+
+      <span class="service-num">
+        03
+      </span>
+
+      <h3>
+        Packaging
+      </h3>
+
+      <small>
+        Packaging / Labels / Product
+      </small>
+
+    </div>
+
+
+    <div class="service reveal">
+
+      <span class="service-num">
+        04
+      </span>
+
+      <h3>
+        Social Media
+      </h3>
+
+      <small>
+        Campaigns / Posts / Digital
+      </small>
+
+    </div>
+
+
+    <div class="service reveal">
+
+      <span class="service-num">
+        05
+      </span>
+
+      <h3>
+        Print & Editorial
+      </h3>
+
+      <small>
+        Print / Layout / Editorial
+      </small>
+
+    </div>
+
 
   </section>
 
-  <section class="contact" id="contact">
 
-    <span class="contact-label">
-      Have a project or opportunity?
-    </span>
+  <!-- =======================================================
+       ARCHITECTURE
+       مخفي للمستقبل
+  ======================================================== -->
 
-    <div class="contact-main">
-      <p>Let's work together</p>
+  <section
+    class="architecture-section"
+    id="architecture">
 
-      <a href="mailto:mohammed2003hawaj2003@gmail.com">
-        SAY HELLO
-      </a>
+
+    <div class="section-top">
+
+      <span>
+        Architecture
+      </span>
+
+      <span>
+        Selected Work
+      </span>
+
     </div>
 
+
+    <h2 class="architecture-title">
+
+      ARCHITECTURE<br>
+      PORTFOLIO
+
+    </h2>
+
+
+  </section>
+
+
+  <!-- =======================================================
+       CONTACT
+  ======================================================== -->
+
+  <section
+    class="contact"
+    id="contact">
+
+
+    <div
+      class="contact-motion observe-motion">
+
+
+      <div
+        class="contact-line contact-left">
+
+        LET'S WORK
+
+      </div>
+
+
+      <div
+        class="contact-line contact-right">
+
+        TOGETHER
+
+      </div>
+
+
+    </div>
+
+
+    <div
+      class="email-area reveal">
+
+
+      <p>
+        Have a project or opportunity?
+      </p>
+
+
+      <a
+        class="email-link"
+        href="mailto:mohammed2003hawaj2003@gmail.com">
+
+        SAY HELLO ↗
+
+      </a>
+
+
+    </div>
+
+
     <div class="socials">
+
 
       <a
         class="social"
         href="https://sy.linkedin.com/in/mohammed-hawaj-6a82691b6"
         target="_blank"
-        rel="noopener"
-      >
-        <small>LinkedIn</small>
-        <strong>Mohammed Hawaj</strong>
-        <span>↗</span>
+        rel="noopener">
+
+        <small>
+          LinkedIn
+        </small>
+
+        <strong>
+          Mohammed Hawaj
+        </strong>
+
+        <span>
+          ↗
+        </span>
+
       </a>
+
 
       <a
         class="social"
         href="https://www.instagram.com/arch__moo"
         target="_blank"
-        rel="noopener"
-      >
-        <small>Instagram</small>
-        <strong>@arch__moo</strong>
-        <span>↗</span>
+        rel="noopener">
+
+        <small>
+          Instagram
+        </small>
+
+        <strong>
+          @arch__moo
+        </strong>
+
+        <span>
+          ↗
+        </span>
+
       </a>
+
 
       <a
         class="social"
         href="https://www.facebook.com/share/19Y4QxVGUS/?mibextid=wwXIfr"
         target="_blank"
-        rel="noopener"
-      >
-        <small>Facebook</small>
-        <strong>Facebook</strong>
-        <span>↗</span>
+        rel="noopener">
+
+        <small>
+          Facebook
+        </small>
+
+        <strong>
+          Mohammed Hawaj
+        </strong>
+
+        <span>
+          ↗
+        </span>
+
       </a>
+
 
       <a
         class="social"
         href="https://wa.me/963957854313"
         target="_blank"
-        rel="noopener"
-      >
-        <small>WhatsApp</small>
-        <strong>+963 957 854 313</strong>
-        <span>↗</span>
+        rel="noopener">
+
+        <small>
+          WhatsApp
+        </small>
+
+        <strong>
+          +963 957 854 313
+        </strong>
+
+        <span>
+          ↗
+        </span>
+
       </a>
+
 
       <a
         class="social"
-        href="mailto:mohammed2003hawaj2003@gmail.com"
-      >
-        <small>Email</small>
-        <strong>mohammed2003hawaj2003@gmail.com</strong>
-        <span>↗</span>
+        href="mailto:mohammed2003hawaj2003@gmail.com">
+
+        <small>
+          Email
+        </small>
+
+        <strong>
+          mohammed2003hawaj2003@gmail.com
+        </strong>
+
+        <span>
+          ↗
+        </span>
+
       </a>
+
 
     </div>
 
+
     <footer class="footer">
-      <span>Mohammed Hawaj © 2026</span>
-      <span>Graphic Designer</span>
-      <span>Available for selected opportunities</span>
+
+      <span>
+        Mohammed Hawaj © 2026
+      </span>
+
+      <span>
+        Graphic Designer
+      </span>
+
+      <span>
+        Portfolio
+      </span>
+
     </footer>
+
 
   </section>
 
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
   <script>
 
-    const words = [
-      "BRANDING",
-      "VISUAL IDENTITY",
-      "PRINT DESIGN",
-      "RETAIL GRAPHICS",
-      "ART DIRECTION"
-    ];
 
-    const rotatingWord = document.getElementById("rotatingWord");
-    let currentWord = 0;
+    /* LOADER */
 
-    setInterval(() => {
+    const loader =
+      document.getElementById("loader");
 
-      rotatingWord.animate(
-        [
-          { opacity:1, transform:"translateY(0)" },
-          { opacity:0, transform:"translateY(-10px)" }
-        ],
-        {
-          duration:250,
-          fill:"forwards"
-        }
-      ).onfinish = () => {
 
-        currentWord = (currentWord + 1) % words.length;
-        rotatingWord.textContent = words[currentWord];
+    window.addEventListener(
+      "load",
+      () => {
 
-        rotatingWord.animate(
-          [
-            { opacity:0, transform:"translateY(10px)" },
-            { opacity:1, transform:"translateY(0)" }
-          ],
-          {
-            duration:350,
-            fill:"forwards"
-          }
+        setTimeout(
+          () => {
+
+            loader.classList.add("hide");
+
+          },
+          650
         );
 
-      };
-
-    },1900);
-
-
-    const cursor = document.getElementById("cursor");
-
-    document.addEventListener("mousemove", e => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
-    });
-
-    document.querySelectorAll("a").forEach(link => {
-
-      link.addEventListener("mouseenter", () => {
-        cursor.classList.add("big");
-      });
-
-      link.addEventListener("mouseleave", () => {
-        cursor.classList.remove("big");
-      });
-
-    });
-
-
-    const hero = document.getElementById("home");
-    const orbit = document.getElementById("orbit");
-
-    hero.addEventListener("mousemove", e => {
-
-      const rect = hero.getBoundingClientRect();
-
-      const x =
-        (e.clientX - rect.left) / rect.width - .5;
-
-      const y =
-        (e.clientY - rect.top) / rect.height - .5;
-
-      orbit.style.transform =
-        `translate(${x * 55}px, ${y * 55}px)`;
-
-    });
-
-    hero.addEventListener("mouseleave", () => {
-      orbit.style.transform = "translate(0,0)";
-    });
-
-
-    const observer = new IntersectionObserver(
-      entries => {
-
-        entries.forEach(entry => {
-
-          if(entry.isIntersecting){
-            entry.target.classList.add("visible");
-          }
-
-        });
-
-      },
-      {
-        threshold:.13
       }
     );
 
-    document.querySelectorAll(".reveal").forEach(el => {
-      observer.observe(el);
-    });
+
+    /* HERO WORDS */
+
+    const rotatingWords = [
+
+      "BRANDING",
+
+      "RETAIL GRAPHICS",
+
+      "PACKAGING",
+
+      "VISUAL IDENTITY",
+
+      "PRINT DESIGN",
+
+      "SOCIAL MEDIA"
+
+    ];
+
+
+    const rotatingWord =
+      document.getElementById(
+        "rotatingWord"
+      );
+
+
+    let rotatingIndex = 0;
+
+
+    setInterval(
+      () => {
+
+
+        rotatingWord.animate(
+
+          [
+
+            {
+              opacity:1,
+              transform:"translateY(0)"
+            },
+
+            {
+              opacity:0,
+              transform:"translateY(-9px)"
+            }
+
+          ],
+
+          {
+
+            duration:220,
+
+            fill:"forwards"
+
+          }
+
+        ).onfinish = () => {
+
+
+          rotatingIndex =
+            (rotatingIndex + 1)
+            % rotatingWords.length;
+
+
+          rotatingWord.textContent =
+            rotatingWords[
+              rotatingIndex
+            ];
+
+
+          rotatingWord.animate(
+
+            [
+
+              {
+                opacity:0,
+                transform:"translateY(9px)"
+              },
+
+              {
+                opacity:1,
+                transform:"translateY(0)"
+              }
+
+            ],
+
+            {
+
+              duration:330,
+
+              fill:"forwards"
+
+            }
+
+          );
+
+        };
+
+
+      },
+      1850
+    );
+
+
+    /* CURSOR */
+
+    const cursor =
+      document.getElementById(
+        "cursor"
+      );
+
+
+    document.addEventListener(
+      "mousemove",
+      e => {
+
+        cursor.style.left =
+          e.clientX + "px";
+
+        cursor.style.top =
+          e.clientY + "px";
+
+      }
+    );
+
+
+    document
+      .querySelectorAll(
+        "a, .portrait"
+      )
+      .forEach(
+        element => {
+
+
+          element.addEventListener(
+            "mouseenter",
+            () => {
+
+              cursor.classList.add(
+                "active"
+              );
+
+            }
+          );
+
+
+          element.addEventListener(
+            "mouseleave",
+            () => {
+
+              cursor.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+
+        }
+      );
+
+
+    /* HERO MOVEMENT */
+
+    const hero =
+      document.getElementById(
+        "home"
+      );
+
+
+    const heroObject =
+      document.getElementById(
+        "heroObject"
+      );
+
+
+    hero.addEventListener(
+      "mousemove",
+      e => {
+
+
+        const rect =
+          hero.getBoundingClientRect();
+
+
+        const x =
+          (
+            e.clientX
+            - rect.left
+          )
+          / rect.width
+          - .5;
+
+
+        const y =
+          (
+            e.clientY
+            - rect.top
+          )
+          / rect.height
+          - .5;
+
+
+        heroObject.style.transform =
+          `translate(
+            ${x * 50}px,
+            ${y * 50}px
+          )`;
+
+      }
+    );
+
+
+    hero.addEventListener(
+      "mouseleave",
+      () => {
+
+        heroObject.style.transform =
+          "translate(0,0)";
+
+      }
+    );
+
+
+    /* ABOUT IMAGE SLIDER */
+
+    const portrait =
+      document.getElementById(
+        "portrait"
+      );
+
+
+    const portraitSlides =
+      document.querySelectorAll(
+        ".portrait-slide"
+      );
+
+
+    const portraitCounter =
+      document.getElementById(
+        "portraitCounter"
+      );
+
+
+    let currentPortrait = 0;
+
+    let portraitTimer;
+
+
+    function updatePortraitCounter(){
+
+      portraitCounter.textContent =
+
+        String(
+          currentPortrait + 1
+        ).padStart(
+          2,
+          "0"
+        )
+
+        +
+
+        " / "
+
+        +
+
+        String(
+          portraitSlides.length
+        ).padStart(
+          2,
+          "0"
+        );
+
+    }
+
+
+    function changePortrait(){
+
+      portraitSlides[
+        currentPortrait
+      ]
+      .classList
+      .remove(
+        "active"
+      );
+
+
+      currentPortrait =
+
+        (
+          currentPortrait + 1
+        )
+
+        %
+
+        portraitSlides.length;
+
+
+      portraitSlides[
+        currentPortrait
+      ]
+      .classList
+      .add(
+        "active"
+      );
+
+
+      updatePortraitCounter();
+
+    }
+
+
+    function startPortraitSlider(){
+
+      stopPortraitSlider();
+
+
+      portraitTimer =
+        setInterval(
+
+          changePortrait,
+
+          3200
+
+        );
+
+    }
+
+
+    function stopPortraitSlider(){
+
+      if(
+        portraitTimer
+      ){
+
+        clearInterval(
+          portraitTimer
+        );
+
+      }
+
+    }
+
+
+    startPortraitSlider();
+
+
+    portrait.addEventListener(
+      "mouseenter",
+      stopPortraitSlider
+    );
+
+
+    portrait.addEventListener(
+      "mouseleave",
+      startPortraitSlider
+    );
+
+
+    /* NORMAL REVEALS */
+
+    const revealObserver =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if(
+                entry.isIntersecting
+              ){
+
+                entry.target
+                  .classList
+                  .add(
+                    "visible"
+                  );
+
+              }
+
+            }
+          );
+
+        },
+
+        {
+          threshold:.14
+        }
+
+      );
+
+
+    document
+      .querySelectorAll(
+        ".reveal"
+      )
+      .forEach(
+        element => {
+
+          revealObserver.observe(
+            element
+          );
+
+        }
+      );
+
+
+    /* BIG MOTION TITLES */
+
+    const motionObserver =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if(
+                entry.isIntersecting
+              ){
+
+                entry.target
+                  .classList
+                  .add(
+                    "visible"
+                  );
+
+              }
+
+            }
+          );
+
+        },
+
+        {
+          threshold:.25
+        }
+
+      );
+
+
+    document
+      .querySelectorAll(
+        ".observe-motion"
+      )
+      .forEach(
+        element => {
+
+          motionObserver.observe(
+            element
+          );
+
+        }
+      );
+
 
   </script>
+
 
 </body>
 </html>
