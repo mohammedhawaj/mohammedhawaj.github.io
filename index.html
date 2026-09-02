@@ -1,3161 +1,816 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammed Hawaj — Graphic Design + Architecture</title>
+<meta name="description" content="Mohammed Hawaj — graphic designer and architect working across brand identity, retail environments and architectural design.">
 
-  <title>Mohammed Hawaj — Graphic Designer & Architect</title>
-
-  <meta
-    name="description"
-    content="Portfolio of Mohammed Hawaj — Graphic Designer & Architect working across brand identity, visual communication, retail graphics, architecture and spatial design."
-  >
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 
 /* =========================================================
-   DESIGN SYSTEM
+   TOKENS
 ========================================================= */
-
 :root{
-  --black:#090909;
-  --black-soft:#111111;
+  --ink:#0E1B2A;
+  --ink-soft:#16283C;
+  --paper:#EDE9DC;
+  --white:#F7F6F1;
+  --line:#7FA6C9;
+  --line-dim:rgba(127,166,201,.35);
+  --rust:#B5502E;
 
-  --cream:#F2EFE8;
-  --cream-soft:#E6E2D9;
-
-  --gray:#8A8780;
-  --gray-dark:#66635D;
-
-  --accent:#742B35;
-
-  --line-light:rgba(255,255,255,.13);
-  --line-dark:rgba(0,0,0,.17);
-
-  --display:"Space Grotesk",Arial,sans-serif;
-  --body:"Manrope",Arial,sans-serif;
+  --display:"Big Shoulders Display", "Arial Narrow", sans-serif;
+  --mono:"IBM Plex Mono", monospace;
+  --body:"IBM Plex Sans", Arial, sans-serif;
 }
 
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{
-  background:var(--black);
-  color:var(--cream);
-
+  background:var(--ink);
+  color:var(--white);
   font-family:var(--body);
-
   overflow-x:hidden;
 }
+a{color:inherit;text-decoration:none;}
+img,svg{display:block;max-width:100%;}
+::selection{background:var(--rust);color:var(--white);}
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
+.shell{width:min(90%,1360px);margin:auto;}
 
-img{
-  display:block;
-  max-width:100%;
-}
-
-::selection{
-  background:var(--accent);
-  color:white;
-}
-
-
-/* =========================================================
-   CUSTOM CURSOR
-========================================================= */
-
-.cursor{
-  position:fixed;
-
-  width:11px;
-  height:11px;
-
-  left:0;
-  top:0;
-
-  background:#fff;
-
-  border-radius:50%;
-
+/* blueprint grid backdrop */
+.grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--line-dim) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-dim) 1px, transparent 1px);
+  background-size:64px 64px;
+  opacity:.28;
   pointer-events:none;
-
-  z-index:9999;
-
-  mix-blend-mode:difference;
-
-  transform:translate(-50%,-50%);
-
-  transition:
-    width .25s ease,
-    height .25s ease;
 }
 
-.cursor.active{
-  width:64px;
-  height:64px;
+.mono-label{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--line);
 }
 
+h1,h2,h3{
+  font-family:var(--display);
+  font-weight:800;
+  text-transform:uppercase;
+  line-height:.86;
+  letter-spacing:-.01em;
+}
 
 /* =========================================================
-   NAVIGATION
+   SHEET FRAME (every section is a numbered drawing sheet)
 ========================================================= */
-
-.nav{
-  position:absolute;
-
-  top:0;
-  left:0;
-
-  width:100%;
-
-  padding:34px 4vw;
-
+.sheet{
+  position:relative;
+  border-top:1px solid var(--line-dim);
+  padding:96px 0 110px;
+}
+.sheet-tag{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-
-  z-index:50;
-
-  font-size:10px;
-  letter-spacing:.18em;
-
-  text-transform:uppercase;
+  align-items:baseline;
+  margin-bottom:56px;
+  gap:20px;
+  flex-wrap:wrap;
 }
-
-.nav-name{
-  font-weight:800;
+.sheet-tag .no{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.08em;
+  color:var(--line);
 }
+.sheet-tag .no b{color:var(--white);font-weight:500;}
 
+/* =========================================================
+   NAV
+========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px min(5%,80px);
+  background:linear-gradient(var(--ink) 60%, transparent);
+}
+.nav-mark{
+  width:42px;height:42px;
+  border:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:800;font-size:16px;
+}
 .nav-links{
-  display:flex;
-  gap:30px;
+  display:flex;align-items:center;gap:28px;
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;
 }
-
-.nav-links a{
-  opacity:.62;
-
-  transition:opacity .3s ease;
-}
-
-.nav-links a:hover{
+.nav-links a{opacity:.7;transition:opacity .2s;border-bottom:1px solid transparent;}
+.nav-links a:hover{opacity:1;border-color:var(--line);}
+.nav-links .cta{
   opacity:1;
+  border:1px solid var(--line);
+  padding:9px 16px;
 }
-
+.nav-links .cta:hover{background:var(--line);color:var(--ink);border-color:var(--line);}
 
 /* =========================================================
    HERO
 ========================================================= */
-
 .hero{
+  position:relative;
+  padding:150px 0 0;
   min-height:100vh;
-
-  position:relative;
-
-  overflow:hidden;
-
-  display:flex;
-  align-items:center;
-
-  padding:120px 4vw 80px;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
 }
-
-.hero-content{
-  width:100%;
-
-  position:relative;
-
-  z-index:5;
+.hero-top{
+  position:relative;z-index:2;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+  width:min(90%,1360px);
+  margin:0 auto;
 }
-
-.hero-mask{
-  overflow:hidden;
-}
-
-.hero-mask h1{
-  font-family:var(--display);
-
-  font-size:clamp(70px,12vw,205px);
-
-  line-height:.79;
-
-  letter-spacing:-.078em;
-
-  font-weight:700;
-
-  transform:translateY(115%);
-
-  animation:
-    heroReveal
-    1.15s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
-}
-
-.hero-mask:nth-child(2) h1{
-  animation-delay:.16s;
-}
-
-
-/* HERO META */
-
-.hero-meta{
-  margin-top:42px;
-
-  display:flex;
-  align-items:center;
-
-  gap:17px;
-
-  flex-wrap:wrap;
-
-  font-size:11px;
-
-  letter-spacing:.16em;
-
-  text-transform:uppercase;
-
-  opacity:0;
-
-  animation:
-    fadeUp
-    .8s
-    ease
-    1.1s
-    forwards;
-}
-
+.hero-copy{grid-column:1/8;}
 .hero-role{
-  font-weight:700;
-}
-
-.hero-divider{
-  width:44px;
-  height:1px;
-
-  background:#747474;
-}
-
-.hero-rotate{
-  min-width:190px;
-
-  color:#797979;
-
-  font-weight:700;
-}
-
-
-/* =========================================================
-   HERO CIRCLES
-========================================================= */
-
-.hero-object{
-  position:absolute;
-
-  width:430px;
-  height:430px;
-
-  right:-110px;
-  top:20%;
-
-  border:
-    1px solid
-    rgba(255,255,255,.13);
-
-  border-radius:50%;
-
-  transition:
-    transform
-    .18s
-    ease-out;
-}
-
-.hero-object::before,
-.hero-object::after{
-  content:"";
-
-  position:absolute;
-
-  border-radius:50%;
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-}
-
-.hero-object::before{
-  inset:55px;
-}
-
-.hero-object::after{
-  inset:120px;
-}
-
-.hero-dot{
-  position:absolute;
-
-  width:13px;
-  height:13px;
-
-  right:7%;
-  bottom:15%;
-
-  background:var(--cream);
-
-  border-radius:50%;
-}
-
-
-/* =========================================================
-   HERO BOTTOM
-========================================================= */
-
-.hero-bottom{
-  position:absolute;
-
-  left:4vw;
-  right:4vw;
-  bottom:42px;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  font-size:10px;
-
-  letter-spacing:.16em;
-
-  text-transform:uppercase;
-
-  opacity:0;
-
-  animation:
-    fadeUp
-    .8s
-    ease
-    1.4s
-    forwards;
-}
-
-.scroll-wrap{
-  display:flex;
-  align-items:center;
-
-  gap:14px;
-}
-
-.scroll-line{
-  width:60px;
-  height:1px;
-
-  background:var(--cream);
-
-  transform-origin:left;
-
-  animation:
-    lineMove
-    1.7s
-    ease-in-out
-    infinite;
-}
-
-
-/* =========================================================
-   MARQUEE
-========================================================= */
-
-.marquee{
-  background:var(--cream);
-  color:var(--black);
-
-  overflow:hidden;
-
-  border-bottom:
-    1px solid
-    var(--line-dark);
-}
-
-.marquee-track{
-  display:flex;
-
-  width:max-content;
-
-  animation:
-    marquee
-    24s
-    linear
-    infinite;
-}
-
-.marquee span{
-  padding:20px 30px;
-
-  white-space:nowrap;
-
-  font-size:11px;
-
-  letter-spacing:.15em;
-
-  text-transform:uppercase;
-
-  font-weight:700;
-}
-
-
-/* =========================================================
-   SELECTED WORK
-========================================================= */
-
-.work{
-  background:var(--cream);
-  color:var(--black);
-
-  padding:120px 4vw 135px;
-}
-
-.section-top{
-  padding-bottom:23px;
-
-  border-bottom:
-    1px solid
-    var(--line-dark);
-
-  display:flex;
-  justify-content:space-between;
-
-  font-size:10px;
-
-  letter-spacing:.17em;
-
-  text-transform:uppercase;
-}
-
-.work-placeholder{
-  min-height:450px;
-
-  border-bottom:
-    1px solid
-    var(--line-dark);
-
-  display:grid;
-
-  grid-template-columns:
-    1.55fr
-    .45fr;
-
-  gap:50px;
-
-  align-items:center;
-}
-
-.work-placeholder h2{
-  font-family:var(--display);
-
-  font-size:
-    clamp(48px,7.2vw,120px);
-
-  line-height:.89;
-
-  letter-spacing:-.065em;
-
-  font-weight:600;
-}
-
-.work-placeholder p{
-  max-width:310px;
-
+  font-family:var(--mono);
   font-size:13px;
-
-  line-height:1.65;
-
-  color:#726E67;
-}
-
-
-/* =========================================================
-   DISCIPLINE SPLIT
-========================================================= */
-
-.disciplines{
-  background:var(--black);
-
-  padding:145px 4vw;
-}
-
-.discipline-intro{
-  display:grid;
-
-  grid-template-columns:
-    .55fr
-    1.45fr;
-
-  gap:8vw;
-
-  margin-bottom:100px;
-}
-
-.small-label{
-  font-size:10px;
-
-  letter-spacing:.19em;
-
+  letter-spacing:.08em;
   text-transform:uppercase;
-
-  color:#666;
+  color:var(--line);
+  margin-bottom:18px;
 }
-
-.discipline-intro h2{
-  font-family:var(--display);
-
-  font-size:
-    clamp(40px,5.4vw,88px);
-
-  line-height:.98;
-
-  letter-spacing:-.055em;
-
-  font-weight:500;
+.hero h1{
+  font-size:clamp(56px,8.6vw,128px);
 }
-
-.discipline-intro h2 span{
-  color:#686868;
-}
-
-
-/* DISCIPLINE ITEMS */
-
-.discipline-item{
-  border-top:
-    1px solid
-    var(--line-light);
-
-  padding:42px 0;
-
-  display:grid;
-
-  grid-template-columns:
-    70px
-    1fr
-    1fr;
-
-  gap:40px;
-
-  align-items:center;
-}
-
-.discipline-item:last-child{
-  border-bottom:
-    1px solid
-    var(--line-light);
-}
-
-.discipline-number{
-  color:#5e5e5e;
-
-  font-size:10px;
-}
-
-.discipline-name{
-  font-family:var(--display);
-
-  font-size:
-    clamp(34px,5vw,78px);
-
-  letter-spacing:-.05em;
-
-  font-weight:500;
-}
-
-.discipline-description{
-  max-width:450px;
-
-  color:#898989;
-
-  font-size:13px;
-
-  line-height:1.7;
-}
-
-
-/* =========================================================
-   ABOUT MOTION
-========================================================= */
-
-.about{
-  padding:150px 4vw;
-
-  background:var(--black);
-
-  overflow:hidden;
-}
-
-.motion-title{
-  overflow:hidden;
-
-  margin-bottom:90px;
-}
-
-.motion-row{
-  font-family:var(--display);
-
-  font-size:
-    clamp(70px,11vw,185px);
-
-  line-height:.78;
-
-  letter-spacing:-.075em;
-
-  font-weight:600;
-
-  white-space:nowrap;
-}
-
-.motion-left{
-  transform:
-    translateX(-105%);
-
-  transition:
-    transform
-    1.15s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.motion-right{
-  text-align:right;
-
-  transform:
-    translateX(105%);
-
-  transition:
-    transform
-    1.15s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.motion-title.visible
-.motion-left,
-
-.motion-title.visible
-.motion-right{
-  transform:translateX(0);
-}
-
-
-/* =========================================================
-   ABOUT BODY
-========================================================= */
-
-.about-content{
-  display:grid;
-
-  grid-template-columns:
-    .6fr
-    1.45fr;
-
-  gap:8vw;
-}
-
-.eyebrow{
-  font-size:10px;
-
-  letter-spacing:.19em;
-
-  text-transform:uppercase;
-
-  color:#686868;
-}
-
-.about-main h2{
-  font-family:var(--display);
-
-  max-width:1080px;
-
-  font-size:
-    clamp(39px,5.3vw,86px);
-
-  line-height:.98;
-
-  letter-spacing:-.055em;
-
-  font-weight:500;
-}
-
-.about-main h2 span{
-  color:#696969;
-}
-
-.about-grid{
-  margin-top:75px;
-
-  display:grid;
-
-  grid-template-columns:
-    minmax(280px,420px)
-    minmax(280px,570px);
-
-  gap:60px;
-
-  align-items:start;
-}
-
-
-/* =========================================================
-   PORTRAIT SLIDER
-========================================================= */
-
-.portrait{
-  aspect-ratio:4/5;
-
-  position:relative;
-
-  overflow:hidden;
-
-  background:#141414;
-}
-
-.portrait-slider{
-  position:absolute;
-
-  inset:0;
-}
-
-.portrait-slide{
-  position:absolute;
-
-  inset:0;
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  object-position:center;
-
-  opacity:0;
-
-  filter:
-    grayscale(100%)
-    contrast(1.03);
-
-  transform:
-    scale(1.04);
-
-  transition:
-    opacity 1s ease,
-    transform 4.5s ease,
-    filter .7s ease;
-}
-
-.portrait-slide.active{
-  opacity:1;
-
-  transform:scale(1);
-}
-
-.portrait:hover
-.portrait-slide{
-  filter:grayscale(0);
-}
-
-.portrait-tag{
-  position:absolute;
-
-  left:18px;
-  bottom:18px;
-
-  z-index:5;
-
-  padding:9px 12px;
-
-  background:
-    rgba(0,0,0,.72);
-
-  backdrop-filter:
-    blur(8px);
-
-  font-size:9px;
-
-  letter-spacing:.16em;
-
-  text-transform:uppercase;
-}
-
-.portrait-counter{
-  position:absolute;
-
-  right:18px;
-  top:18px;
-
-  z-index:5;
-
-  padding:8px 11px;
-
-  background:
-    rgba(0,0,0,.62);
-
-  backdrop-filter:
-    blur(8px);
-
-  font-size:9px;
-
-  letter-spacing:.16em;
-}
-
-
-/* ABOUT COPY */
-
-.about-text{
-  color:#999;
-
+.hero-desc{
+  margin-top:30px;
+  max-width:460px;
   font-size:15px;
-
-  line-height:1.78;
-}
-
-.about-text strong{
-  color:var(--cream);
-
-  font-weight:600;
-}
-
-.about-note{
-  margin-top:35px;
-
-  padding-top:28px;
-
-  border-top:
-    1px solid
-    var(--line-light);
-
-  display:grid;
-
-  grid-template-columns:
-    1fr
-    1fr;
-
-  gap:25px;
-}
-
-.about-note span{
-  color:#666;
-
-  font-size:9px;
-
-  letter-spacing:.16em;
-
-  text-transform:uppercase;
-}
-
-.about-note strong{
-  display:block;
-
-  margin-top:8px;
-
-  color:var(--cream);
-
-  font-size:13px;
-
-  font-weight:500;
-}
-
-
-/* =========================================================
-   GRAPHIC EXPERTISE
-========================================================= */
-
-.expertise{
-  background:var(--black);
-
-  padding:
-    0
-    4vw
-    145px;
-}
-
-.expertise-head{
-  padding-bottom:30px;
-
-  font-size:10px;
-
-  letter-spacing:.18em;
-
-  text-transform:uppercase;
-
-  color:#686868;
-}
-
-.service{
-  min-height:105px;
-
-  border-top:
-    1px solid
-    var(--line-light);
-
-  display:grid;
-
-  grid-template-columns:
-    70px
-    1fr
-    auto;
-
-  align-items:center;
-}
-
-.service:last-child{
-  border-bottom:
-    1px solid
-    var(--line-light);
-}
-
-.service-num{
-  color:#5f5f5f;
-
-  font-size:10px;
-}
-
-.service h3{
-  font-family:var(--display);
-
-  font-size:
-    clamp(25px,3vw,51px);
-
-  letter-spacing:-.04em;
-
-  font-weight:500;
-}
-
-.service small{
-  color:#686868;
-
-  font-size:9px;
-
-  letter-spacing:.15em;
-
-  text-transform:uppercase;
-}
-
-
-/* =========================================================
-   ARCHITECTURE
-========================================================= */
-
-.architecture{
-  position:relative;
-
-  background:var(--cream);
-  color:var(--black);
-
-  padding:
-    140px
-    4vw
-    150px;
-
-  overflow:hidden;
-}
-
-.architecture-head{
-  display:grid;
-
-  grid-template-columns:
-    .55fr
-    1.45fr;
-
-  gap:8vw;
-}
-
-.architecture-title{
-  overflow:hidden;
-}
-
-.architecture-line{
-  font-family:var(--display);
-
-  font-size:
-    clamp(65px,9.5vw,160px);
-
-  line-height:.8;
-
-  letter-spacing:-.07em;
-
-  font-weight:600;
-}
-
-.architecture-line:first-child{
-  transform:
-    translateX(-110%);
-
-  transition:
-    1.15s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.architecture-line:last-child{
-  text-align:right;
-
-  transform:
-    translateX(110%);
-
-  transition:
-    1.15s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.architecture-title.visible
-.architecture-line{
-  transform:translateX(0);
-}
-
-
-/* ARCHITECTURE COPY */
-
-.architecture-body{
-  margin-top:100px;
-
-  display:grid;
-
-  grid-template-columns:
-    .7fr
-    1.3fr;
-
-  gap:9vw;
-}
-
-.architecture-copy{
-  max-width:440px;
-
-  color:#77736c;
-
-  font-size:14px;
-
   line-height:1.75;
+  color:#C7CBD2;
 }
-
-.architecture-copy strong{
-  color:var(--black);
-
-  font-weight:600;
+.hero-diagram{
+  grid-column:8/13;
+  align-self:center;
+  position:relative;
 }
-
-
-/* ARCHITECTURE SERVICES */
-
-.arch-list{
-  border-top:
-    1px solid
-    var(--line-dark);
+.hero-diagram svg{width:100%;height:auto;}
+.hero-diagram path{
+  fill:none;
+  stroke:var(--line);
+  stroke-width:1.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  pathLength:1;
+  stroke-dasharray:1;
+  stroke-dashoffset:1;
+  animation:draw 2.6s cubic-bezier(.2,.7,.2,1) forwards;
 }
-
-.arch-row{
-  min-height:92px;
-
-  border-bottom:
-    1px solid
-    var(--line-dark);
-
-  display:grid;
-
-  grid-template-columns:
-    60px
-    1fr
-    auto;
-
-  align-items:center;
+.hero-diagram .fill-panel{
+  fill:var(--ink-soft);
+  stroke:var(--line);
+  stroke-width:1;
+  opacity:0;
+  animation:panelIn .6s ease .9s forwards;
 }
+@keyframes draw{to{stroke-dashoffset:0;}}
+@keyframes panelIn{to{opacity:1;}}
 
-.arch-row span:first-child{
-  color:#96918A;
-
-  font-size:10px;
-}
-
-.arch-row strong{
-  font-family:var(--display);
-
-  font-size:
-    clamp(24px,3vw,45px);
-
-  font-weight:500;
-
-  letter-spacing:-.04em;
-}
-
-.arch-row small{
-  color:#8d8982;
-
-  font-size:9px;
-
-  letter-spacing:.13em;
-
+.title-block{
+  position:relative;z-index:2;
+  border-top:1px solid var(--line-dim);
+  padding:20px min(5%,80px);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.06em;
   text-transform:uppercase;
+  color:var(--line);
 }
-
+.title-block span b{color:var(--white);font-weight:500;}
 
 /* =========================================================
-   ARCHITECTURE FUTURE WORK
+   STATEMENT
 ========================================================= */
-
-.arch-placeholder{
-  margin-top:110px;
-
-  min-height:360px;
-
-  border-top:
-    1px solid
-    var(--line-dark);
-
-  border-bottom:
-    1px solid
-    var(--line-dark);
-
-  display:flex;
-
-  justify-content:space-between;
-  align-items:center;
-
-  gap:50px;
+.statement-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
 }
-
-.arch-placeholder h3{
+.statement-lead{
+  grid-column:1/8;
   font-family:var(--display);
-
-  font-size:
-    clamp(42px,6vw,95px);
-
-  line-height:.9;
-
-  letter-spacing:-.06em;
-
-  font-weight:500;
+  font-weight:700;
+  font-size:clamp(28px,3.4vw,44px);
+  line-height:1.18;
+  text-transform:none;
+  letter-spacing:-.01em;
+}
+.statement-lead em{
+  font-style:normal;
+  color:var(--line);
+}
+.statement-side{
+  grid-column:9/13;
+  align-self:end;
+  font-size:14px;
+  line-height:1.75;
+  color:#B9BEC6;
 }
 
-.arch-placeholder p{
-  max-width:300px;
-
-  color:#807C75;
-
-  font-size:13px;
-
+/* =========================================================
+   CAPABILITIES (legend style)
+========================================================= */
+.legend{
+  border-top:1px solid var(--line-dim);
+}
+.legend-row{
+  display:grid;
+  grid-template-columns:70px 1fr 1.4fr;
+  gap:24px;
+  padding:26px 0;
+  border-bottom:1px solid var(--line-dim);
+  align-items:baseline;
+}
+.legend-row .mark{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--line);
+}
+.legend-row h3{
+  font-size:clamp(22px,2.6vw,34px);
+  letter-spacing:-.01em;
+}
+.legend-row p{
+  font-size:13.5px;
   line-height:1.7;
+  color:#B9BEC6;
+  max-width:420px;
 }
 
+/* =========================================================
+   WORK
+========================================================= */
+.work-note{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--line);
+  max-width:520px;
+  line-height:1.7;
+  margin-bottom:56px;
+}
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.work-card{
+  background:var(--paper);
+  color:var(--ink);
+  border-radius:2px;
+  padding:26px 26px 22px;
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.work-card .wc-top{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:#5B5A52;
+}
+.work-card svg{
+  width:100%;
+  height:150px;
+  margin:18px 0;
+}
+.work-card svg path{
+  fill:none;
+  stroke:#3B4B5C;
+  stroke-width:1.3;
+}
+.work-card h4{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:21px;
+  text-transform:none;
+  letter-spacing:-.005em;
+  line-height:1.1;
+}
+.work-card p{
+  margin-top:6px;
+  font-size:12.5px;
+  color:#6B6A61;
+}
+
+/* =========================================================
+   PROCESS
+========================================================= */
+.process-list{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.process-item{
+  border:1px solid var(--line-dim);
+  padding:24px 20px;
+  min-height:190px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.process-item .pi-no{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--line);
+}
+.process-item h4{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:22px;
+  text-transform:none;
+  margin-top:20px;
+}
+.process-item p{
+  margin-top:10px;
+  font-size:12.5px;
+  line-height:1.6;
+  color:#AEB3BB;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+}
+.about-copy{
+  grid-column:1/7;
+}
+.about-copy p{
+  font-size:15px;
+  line-height:1.8;
+  color:#C7CBD2;
+  max-width:460px;
+}
+.about-copy p + p{margin-top:18px;}
+
+.spec-table{
+  grid-column:8/13;
+  border-top:1px solid var(--line-dim);
+}
+.spec-row{
+  display:flex;
+  justify-content:space-between;
+  padding:16px 0;
+  border-bottom:1px solid var(--line-dim);
+  font-size:13px;
+}
+.spec-row .k{
+  font-family:var(--mono);
+  color:var(--line);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:11px;
+}
+.spec-row .v{
+  text-align:right;
+  color:var(--white);
+  max-width:220px;
+}
 
 /* =========================================================
    CONTACT
 ========================================================= */
-
 .contact{
-  background:var(--black);
-  color:var(--cream);
-
-  padding:
-    120px
-    4vw
-    38px;
-
-  overflow:hidden;
+  background:var(--paper);
+  color:var(--ink);
 }
-
-.contact-motion{
-  padding:
-    30px
-    0
-    100px;
-
-  overflow:hidden;
+.contact .sheet-tag .no{color:#7A785F;}
+.contact .sheet-tag .no b{color:var(--ink);}
+.contact h2{
+  font-size:clamp(48px,7vw,110px);
+  color:var(--ink);
 }
-
-.contact-line{
-  font-family:var(--display);
-
-  font-size:
-    clamp(64px,10.5vw,175px);
-
-  line-height:.78;
-
-  letter-spacing:-.075em;
-
-  font-weight:600;
-
-  white-space:nowrap;
-}
-
-.contact-left{
-  transform:
-    translateX(-110%);
-
-  transition:
-    1.15s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.contact-right{
-  text-align:right;
-
-  transform:
-    translateX(110%);
-
-  transition:
-    1.15s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.contact-motion.visible
-.contact-left,
-
-.contact-motion.visible
-.contact-right{
-  transform:translateX(0);
-}
-
-
-/* EMAIL */
-
-.email-area{
-  padding-bottom:90px;
-}
-
-.email-area p{
-  margin-bottom:22px;
-
-  color:#707070;
-
-  font-size:10px;
-
-  letter-spacing:.18em;
-
-  text-transform:uppercase;
-}
-
-.email-link{
-  display:inline-block;
-
-  font-family:var(--display);
-
-  font-size:
-    clamp(45px,7vw,120px);
-
-  line-height:.9;
-
-  letter-spacing:-.06em;
-
-  font-weight:600;
-
-  border-bottom:
-    clamp(2px,.4vw,6px)
-    solid
-    var(--cream);
-
-  transition:opacity .3s ease;
-}
-
-.email-link:hover{
-  opacity:.45;
-}
-
-
-/* SOCIAL LINKS */
-
-.socials{
-  border-top:
-    1px solid
-    var(--line-light);
-}
-
-.social{
-  min-height:78px;
-
-  border-bottom:
-    1px solid
-    var(--line-light);
-
+.contact-grid{
+  margin-top:56px;
   display:grid;
-
-  grid-template-columns:
-    120px
-    1fr
-    30px;
-
-  align-items:center;
-
-  transition:
-    background .35s ease,
-    color .35s ease,
-    padding .35s ease;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
 }
+.contact-primary{grid-column:1/7;}
+.contact-primary a{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(28px,3.4vw,42px);
+  border-bottom:2px solid var(--ink);
+  display:inline-block;
+}
+.contact-primary .mono-label{color:#7A785F;margin-bottom:14px;display:block;}
 
-.social small{
-  color:#777;
-
-  font-size:9px;
-
-  letter-spacing:.15em;
-
+.contact-links{
+  grid-column:8/13;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+.contact-links a{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid rgba(14,27,42,.16);
+  font-family:var(--mono);
+  font-size:12.5px;
   text-transform:uppercase;
+  letter-spacing:.04em;
 }
-
-.social strong{
-  font-size:16px;
-
-  font-weight:500;
-}
-
-.social:hover{
-  background:var(--cream);
-  color:var(--black);
-
-  padding:
-    0
-    20px;
-}
-
-.social:hover small{
-  color:#777;
-}
-
-
-/* FOOTER */
+.contact-links a span{opacity:.55;}
 
 .footer{
-  padding-top:30px;
-
+  margin-top:90px;
+  padding-top:22px;
+  border-top:1px solid rgba(14,27,42,.16);
   display:flex;
-
   justify-content:space-between;
-
   flex-wrap:wrap;
-
-  gap:20px;
-
-  color:#676767;
-
-  font-size:9px;
-
-  letter-spacing:.14em;
-
+  gap:10px;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.06em;
   text-transform:uppercase;
+  color:#7A785F;
 }
-
 
 /* =========================================================
-   SCROLL REVEAL
+   REVEAL (single deliberate reveal, not per-card)
 ========================================================= */
-
-.reveal{
-  opacity:0;
-
-  transform:
-    translateY(55px);
-
-  transition:
-    opacity
-    .9s
-    cubic-bezier(.16,1,.3,1),
-
-    transform
-    .9s
-    cubic-bezier(.16,1,.3,1);
-}
-
-.reveal.visible{
-  opacity:1;
-
-  transform:none;
-}
-
-
-/* =========================================================
-   KEYFRAMES
-========================================================= */
-
-@keyframes heroReveal{
-  to{
-    transform:translateY(0);
-  }
-}
-
-@keyframes fadeUp{
-
-  from{
-    opacity:0;
-
-    transform:
-      translateY(18px);
-  }
-
-  to{
-    opacity:1;
-
-    transform:none;
-  }
-
-}
-
-@keyframes lineMove{
-
-  0%,
-  100%{
-    transform:
-      scaleX(.25);
-
-    opacity:.35;
-  }
-
-  50%{
-    transform:
-      scaleX(1);
-
-    opacity:1;
-  }
-
-}
-
-@keyframes marquee{
-
-  from{
-    transform:
-      translateX(0);
-  }
-
-  to{
-    transform:
-      translateX(-50%);
-  }
-
-}
-
+.reveal-group{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal-group.visible{opacity:1;transform:none;}
 
 /* =========================================================
    MOBILE
 ========================================================= */
-
-@media(max-width:800px){
-
-  .cursor{
-    display:none;
-  }
-
-  .nav{
-    padding:
-      25px
-      22px;
-  }
-
-  .nav-links{
-    gap:15px;
-  }
-
-  .nav-links a:nth-child(2){
-    display:none;
-  }
-
-  .hero{
-    padding:
-      105px
-      22px
-      65px;
-  }
-
-  .hero-mask h1{
-    font-size:
-      clamp(58px,18vw,105px);
-  }
-
-  .hero-object{
-    width:270px;
-    height:270px;
-
-    right:-130px;
-    top:29%;
-  }
-
-  .hero-bottom{
-    left:22px;
-    right:22px;
-  }
-
-  .work{
-    padding:
-      85px
-      22px
-      95px;
-  }
-
-  .work-placeholder{
-    min-height:410px;
-
-    grid-template-columns:1fr;
-  }
-
-  .disciplines{
-    padding:
-      100px
-      22px;
-  }
-
-  .discipline-intro{
-    grid-template-columns:1fr;
-
-    gap:30px;
-  }
-
-  .discipline-item{
-    grid-template-columns:
-      35px
-      1fr;
-  }
-
-  .discipline-description{
-    grid-column:2;
-
-    margin-top:10px;
-  }
-
-  .about{
-    padding:
-      100px
-      22px;
-  }
-
-  .motion-row{
-    font-size:
-      clamp(60px,19vw,100px);
-  }
-
-  .about-content{
-    grid-template-columns:1fr;
-
-    gap:25px;
-  }
-
-  .about-grid{
-    grid-template-columns:1fr;
-
-    margin-top:50px;
-  }
-
-  .about-note{
-    grid-template-columns:1fr;
-  }
-
-  .expertise{
-    padding:
-      0
-      22px
-      100px;
-  }
-
-  .service{
-    grid-template-columns:
-      35px
-      1fr;
-  }
-
-  .service small{
-    display:none;
-  }
-
-  .architecture{
-    padding:
-      100px
-      22px;
-  }
-
-  .architecture-head{
-    grid-template-columns:1fr;
-
-    gap:25px;
-  }
-
-  .architecture-line{
-    font-size:
-      clamp(58px,17vw,100px);
-  }
-
-  .architecture-body{
-    grid-template-columns:1fr;
-
-    gap:60px;
-  }
-
-  .arch-row{
-    grid-template-columns:
-      35px
-      1fr;
-  }
-
-  .arch-row small{
-    display:none;
-  }
-
-  .arch-placeholder{
-    flex-direction:column;
-
-    align-items:flex-start;
-
-    justify-content:center;
-  }
-
-  .contact{
-    padding:
-      90px
-      22px
-      32px;
-  }
-
-  .contact-line{
-    font-size:
-      clamp(56px,18vw,100px);
-
-    white-space:normal;
-  }
-
-  .social{
-    grid-template-columns:
-      90px
-      1fr
-      20px;
-  }
-
-  .social strong{
-    font-size:13px;
-
-    overflow-wrap:anywhere;
-  }
-
+@media(max-width:860px){
+  .nav-links a:not(.cta){display:none;}
+  .hero-top{display:block;}
+  .hero-diagram{margin-top:60px;}
+  .statement-lead,.statement-side,.about-copy,.spec-table,.contact-primary,.contact-links{grid-column:auto;}
+  .statement-grid,.about-grid,.contact-grid{display:block;}
+  .statement-side{margin-top:26px;}
+  .spec-table{margin-top:46px;}
+  .legend-row{grid-template-columns:44px 1fr;}
+  .legend-row p{grid-column:1/3;margin-top:6px;}
+  .work-grid{grid-template-columns:1fr;}
+  .process-list{grid-template-columns:1fr 1fr;}
+  .contact-links{margin-top:30px;}
 }
 
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
 @media(prefers-reduced-motion:reduce){
-
-  *,
-  *::before,
-  *::after{
-    animation:none!important;
-
-    transition:none!important;
-  }
-
-  .hero-mask h1,
-  .hero-meta,
-  .hero-bottom,
-  .reveal,
-  .motion-left,
-  .motion-right,
-  .architecture-line,
-  .contact-left,
-  .contact-right{
-    opacity:1!important;
-
-    transform:none!important;
-  }
-
+  *,*::before,*::after{animation:none !important;transition:none !important;}
 }
 
 </style>
 </head>
-
-
 <body>
 
-
-<div
-  class="cursor"
-  id="cursor">
-</div>
-
+<!-- =========================================================
+     NAV
+========================================================= -->
+<nav class="nav">
+  <a class="nav-mark" href="#home">MH</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="cta">Contact</a>
+  </div>
+</nav>
 
 <!-- =========================================================
-     HERO
+     HERO — SHEET 01
 ========================================================= -->
+<section class="hero" id="home">
+  <div class="grid-bg"></div>
 
-<section
-  class="hero"
-  id="home">
-
-
-  <nav class="nav">
-
-
-    <div class="nav-name">
-      Mohammed Hawaj
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="hero-role">Graphic Designer — Architect</div>
+      <h1>MOHAMMED<br>HAWAJ</h1>
+      <p class="hero-desc">
+        I design brand systems and I design buildings, and I use one
+        discipline to sharpen the other. My focus is commercial and
+        retail environments — the counters, signage, canopies and
+        identities that shape how people experience a space.
+      </p>
     </div>
 
-
-    <div class="nav-links">
-
-      <a href="#work">
-        Work
-      </a>
-
-      <a href="#about">
-        About
-      </a>
-
-      <a href="#architecture">
-        Architecture
-      </a>
-
-      <a href="#contact">
-        Contact
-      </a>
-
+    <div class="hero-diagram">
+      <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg">
+        <!-- canopy -->
+        <path d="M40 120 L260 60 L440 100 L440 130 L260 92 L40 150 Z" class="fill-panel"/>
+        <path d="M40 120 L260 60 L440 100" />
+        <path d="M40 150 L260 92 L440 130" />
+        <path d="M40 120 L40 150 M260 60 L260 92 M440 100 L440 130"/>
+        <!-- support columns -->
+        <path d="M70 148 L70 240 M410 128 L410 236"/>
+        <!-- storefront box -->
+        <path d="M60 240 L60 350 L420 350 L420 236 L60 240 Z" class="fill-panel"/>
+        <path d="M60 240 L60 350 L420 350 L420 236"/>
+        <!-- glazing grid -->
+        <path d="M120 245 L120 350 M190 245 L190 350 M260 244 L260 350 M330 244 L330 350"/>
+        <path d="M60 300 L420 296"/>
+        <!-- door -->
+        <path d="M340 300 L340 350 M400 298 L400 350"/>
+      </svg>
     </div>
-
-
-  </nav>
-
-
-  <div
-    class="hero-object"
-    id="heroObject">
   </div>
 
-
-  <div class="hero-dot"></div>
-
-
-  <div class="hero-content">
-
-
-    <div class="hero-mask">
-
-      <h1>
-        MOHAMMED
-      </h1>
-
-    </div>
-
-
-    <div class="hero-mask">
-
-      <h1>
-        HAWAJ
-      </h1>
-
-    </div>
-
-
-    <div class="hero-meta">
-
-
-      <span class="hero-role">
-        Graphic Designer & Architect
-      </span>
-
-
-      <div class="hero-divider"></div>
-
-
-      <span
-        class="hero-rotate"
-        id="rotatingWord">
-
-        IDENTITY
-
-      </span>
-
-
-    </div>
-
-
+  <div class="title-block">
+    <span>Sheet <b>01 / 06</b></span>
+    <span>Scale <b>NTS</b></span>
+    <span>Rev <b>A</b></span>
+    <span>Based in <b>Syria</b></span>
+    <span>Issued <b>2026</b></span>
   </div>
-
-
-  <div class="hero-bottom">
-
-
-    <span>
-      Portfolio © 2026
-    </span>
-
-
-    <div class="scroll-wrap">
-
-      <span>
-        Explore
-      </span>
-
-      <div class="scroll-line"></div>
-
-    </div>
-
-
-  </div>
-
-
 </section>
 
-
 <!-- =========================================================
-     MARQUEE
+     STATEMENT — SHEET 02
 ========================================================= -->
+<section class="sheet" id="statement">
+  <div class="shell">
+    <div class="sheet-tag">
+      <span class="no">Sheet <b>02 / 06</b> — Approach</span>
+      <span class="no">Rev A</span>
+    </div>
 
-<div class="marquee">
-
-  <div class="marquee-track">
-
-    <span>Brand Identity ✦</span>
-    <span>Graphic Design ✦</span>
-    <span>Retail Graphics ✦</span>
-    <span>Visual Communication ✦</span>
-    <span>Architecture ✦</span>
-    <span>Spatial Design ✦</span>
-    <span>Visualization ✦</span>
-
-    <span>Brand Identity ✦</span>
-    <span>Graphic Design ✦</span>
-    <span>Retail Graphics ✦</span>
-    <span>Visual Communication ✦</span>
-    <span>Architecture ✦</span>
-    <span>Spatial Design ✦</span>
-    <span>Visualization ✦</span>
-
+    <div class="statement-grid reveal-group">
+      <p class="statement-lead">
+        A brand is a set of decisions repeated consistently in space.
+        <em>A building is the same thing, built.</em> I treat both as
+        one continuous design problem, from the mark on a cup to the
+        canopy over the pump island.
+      </p>
+      <p class="statement-side">
+        Trained as an architect, working as a graphic designer — I read
+        drawings the way I read layouts, and I design layouts the way
+        I read drawings.
+      </p>
+    </div>
   </div>
-
-</div>
-
-
-<!-- =========================================================
-     SELECTED WORK
-========================================================= -->
-
-<section
-  class="work"
-  id="work">
-
-
-  <div class="section-top">
-
-    <span>
-      Selected Work
-    </span>
-
-    <span>
-      Graphic + Architecture
-    </span>
-
-  </div>
-
-
-  <div class="work-placeholder reveal">
-
-
-    <h2>
-
-      SELECTED<br>
-      PROJECTS.
-
-    </h2>
-
-
-    <p>
-
-      A curated collection of
-      brand identity, retail graphics,
-      visual communication and
-      architectural projects will
-      live here.
-
-    </p>
-
-
-  </div>
-
-
 </section>
 
-
 <!-- =========================================================
-     DISCIPLINES
+     CAPABILITIES — SHEET 03
 ========================================================= -->
+<section class="sheet" id="capabilities">
+  <div class="shell">
+    <div class="sheet-tag">
+      <span class="no">Sheet <b>03 / 06</b> — Legend</span>
+      <span class="no">Capabilities</span>
+    </div>
 
-<section class="disciplines">
+    <div class="legend reveal-group">
 
+      <div class="legend-row">
+        <span class="mark">01</span>
+        <h3>Brand Identity</h3>
+        <p>Marks, type systems and colour languages built to hold up
+          across signage, packaging and print.</p>
+      </div>
 
-  <div class="discipline-intro">
+      <div class="legend-row">
+        <span class="mark">02</span>
+        <h3>Retail & Environmental Graphics</h3>
+        <p>Wayfinding, signage families and interior graphics for
+          convenience stores, grocery and hospitality spaces.</p>
+      </div>
 
+      <div class="legend-row">
+        <span class="mark">03</span>
+        <h3>Architectural Design</h3>
+        <p>Space planning, elevations and construction documentation
+          for small to mid-scale commercial buildouts.</p>
+      </div>
 
-    <span class="small-label reveal">
-      Practice / 01
-    </span>
+      <div class="legend-row">
+        <span class="mark">04</span>
+        <h3>Millwork & Fixture Detailing</h3>
+        <p>Counters, shelving and custom fixtures drawn to match a
+          brand's visual language, not just its footprint.</p>
+      </div>
 
-
-    <h2 class="reveal">
-
-      TWO DISCIPLINES.
-
-      <span>
-        ONE WAY OF THINKING.
-      </span>
-
-    </h2>
-
-
+    </div>
   </div>
-
-
-  <div class="discipline-item reveal">
-
-
-    <span class="discipline-number">
-      01
-    </span>
-
-
-    <h3 class="discipline-name">
-      Graphic Design
-    </h3>
-
-
-    <p class="discipline-description">
-
-      Building visual identities,
-      communication systems and
-      brand applications across
-      print, digital and retail
-      environments.
-
-    </p>
-
-
-  </div>
-
-
-  <div class="discipline-item reveal">
-
-
-    <span class="discipline-number">
-      02
-    </span>
-
-
-    <h3 class="discipline-name">
-      Architecture
-    </h3>
-
-
-    <p class="discipline-description">
-
-      Working with space, structure,
-      visualization and architectural
-      communication through clear
-      concepts and considered design.
-
-    </p>
-
-
-  </div>
-
-
 </section>
 
-
 <!-- =========================================================
-     ABOUT
+     WORK — SHEET 04
 ========================================================= -->
-
-<section
-  class="about"
-  id="about">
-
-
-  <div
-    class="motion-title
-           observe-motion">
-
-
-    <div
-      class="motion-row
-             motion-left">
-
-      ABOUT
-
+<section class="sheet" id="work">
+  <div class="shell">
+    <div class="sheet-tag">
+      <span class="no">Sheet <b>04 / 06</b> — Selected Studies</span>
+      <span class="no">04 of 06</span>
     </div>
 
+    <p class="work-note">
+      Independent studies developed to explore retail and commercial
+      design problems. Commissioned project work will replace these
+      as it's completed.
+    </p>
 
-    <div
-      class="motion-row
-             motion-right">
+    <div class="work-grid reveal-group">
 
-      ME
-
-    </div>
-
-
-  </div>
-
-
-  <div class="about-content">
-
-
-    <div
-      class="eyebrow
-             reveal">
-
-      Profile / 02
-
-    </div>
-
-
-    <div class="about-main">
-
-
-      <h2 class="reveal">
-
-        I WORK AT THE
-        INTERSECTION OF
-
-        <span>
-          VISUAL IDENTITY
-          AND SPACE.
-        </span>
-
-      </h2>
-
-
-      <div class="about-grid">
-
-
-        <div
-          class="portrait
-                 reveal"
-          id="portrait">
-
-
-          <div class="portrait-slider">
-
-
-            <img
-              src="profile-1.jpg"
-              class="portrait-slide active"
-              alt="Mohammed Hawaj">
-
-
-            <img
-              src="profile-2.jpg"
-              class="portrait-slide"
-              alt="Mohammed Hawaj">
-
-
-            <img
-              src="profile-3.jpg"
-              class="portrait-slide"
-              alt="Mohammed Hawaj">
-
-
-          </div>
-
-
-          <span class="portrait-tag">
-            Mohammed Hawaj
-          </span>
-
-
-          <span
-            class="portrait-counter"
-            id="portraitCounter">
-
-            01 / 03
-
-          </span>
-
-
+      <div class="work-card">
+        <div class="wc-top"><span>Study 01</span><span>Elevation</span></div>
+        <svg viewBox="0 0 260 130"><path d="M10 110 L10 40 L130 15 L250 40 L250 110 M10 60 L250 60 M60 60 L60 110 M110 60 L110 110 M160 60 L160 110 M210 60 L210 110"/></svg>
+        <div>
+          <h4>Convenience Store Rebrand</h4>
+          <p>Elevation study — signage, glazing and counter alignment</p>
         </div>
+      </div>
 
-
-        <div
-          class="about-text
-                 reveal">
-
-
-          <p>
-
-            <strong>
-              Mohammed Hawaj is a
-              Graphic Designer & Architect
-            </strong>
-
-            working across visual identities,
-            communication systems, retail
-            graphics and spatial design.
-
-            His approach combines architectural
-            thinking, strong layout composition,
-            visual storytelling and practical
-            client-focused design — allowing ideas
-            to move naturally between brand,
-            print, digital and physical space.
-
-          </p>
-
-
-          <div class="about-note">
-
-
-            <div>
-
-              <span>
-                Design Focus
-              </span>
-
-              <strong>
-                Identity / Communication / Space
-              </strong>
-
-            </div>
-
-
-            <div>
-
-              <span>
-                Approach
-              </span>
-
-              <strong>
-                Clear / Structured / Practical
-              </strong>
-
-            </div>
-
-
-          </div>
-
-
+      <div class="work-card">
+        <div class="wc-top"><span>Study 02</span><span>Plan</span></div>
+        <svg viewBox="0 0 260 130"><path d="M15 15 L245 15 L245 115 L15 115 Z M15 70 L110 70 L110 115 M150 15 L150 70 L245 70 M60 15 L60 45 L15 45"/></svg>
+        <div>
+          <h4>Grocery Layout Diagram</h4>
+          <p>Plan study — circulation and gondola shelving zones</p>
         </div>
-
-
       </div>
 
+      <div class="work-card">
+        <div class="wc-top"><span>Study 03</span><span>System</span></div>
+        <svg viewBox="0 0 260 130"><path d="M30 30 h60 v30 h-60 z M110 30 h60 v30 h-60 z M190 30 h40 v30 h-40 z M30 80 h40 v30 h-40 z M90 80 h80 v30 h-80 z M190 80 h40 v30 h-40 z"/></svg>
+        <div>
+          <h4>Wayfinding Sign Family</h4>
+          <p>Modular signage system — scalable across store formats</p>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="wc-top"><span>Study 04</span><span>Axonometric</span></div>
+        <svg viewBox="0 0 260 130"><path d="M40 100 L130 60 L220 100 L130 130 Z M40 100 L40 60 L130 20 L220 60 L220 100 M130 60 L130 20 M130 130 L130 90"/></svg>
+        <div>
+          <h4>Fuel Canopy Structure</h4>
+          <p>Axonometric study — support geometry and roof planes</p>
+        </div>
+      </div>
 
     </div>
-
-
   </div>
-
-
 </section>
-
 
 <!-- =========================================================
-     GRAPHIC EXPERTISE
+     PROCESS — SHEET 05
 ========================================================= -->
+<section class="sheet" id="process">
+  <div class="shell">
+    <div class="sheet-tag">
+      <span class="no">Sheet <b>05 / 06</b> — Sequence</span>
+      <span class="no">4 stages</span>
+    </div>
 
-<section class="expertise">
+    <div class="process-list reveal-group">
 
+      <div class="process-item">
+        <span class="pi-no">01</span>
+        <div>
+          <h4>Read the site</h4>
+          <p>Brand, footprint, constraints — the things a design has to live inside.</p>
+        </div>
+      </div>
 
-  <div class="expertise-head reveal">
+      <div class="process-item">
+        <span class="pi-no">02</span>
+        <div>
+          <h4>Draft in parallel</h4>
+          <p>Layout and elevation move together, so neither is an afterthought.</p>
+        </div>
+      </div>
 
-    Graphic Design / Expertise
+      <div class="process-item">
+        <span class="pi-no">03</span>
+        <div>
+          <h4>Detail for build</h4>
+          <p>Specs, materials and fixture drawings a contractor can actually use.</p>
+        </div>
+      </div>
 
+      <div class="process-item">
+        <span class="pi-no">04</span>
+        <div>
+          <h4>Check on site</h4>
+          <p>Compare the drawing against what's built, and correct the gap.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-
-  <div class="service reveal">
-
-    <span class="service-num">
-      01
-    </span>
-
-    <h3>
-      Brand Identity
-    </h3>
-
-    <small>
-      Identity / Systems / Applications
-    </small>
-
-  </div>
-
-
-  <div class="service reveal">
-
-    <span class="service-num">
-      02
-    </span>
-
-    <h3>
-      Retail & Environmental Graphics
-    </h3>
-
-    <small>
-      Signage / Walls / In-store
-    </small>
-
-  </div>
-
-
-  <div class="service reveal">
-
-    <span class="service-num">
-      03
-    </span>
-
-    <h3>
-      Packaging
-    </h3>
-
-    <small>
-      Packaging / Labels / Product
-    </small>
-
-  </div>
-
-
-  <div class="service reveal">
-
-    <span class="service-num">
-      04
-    </span>
-
-    <h3>
-      Social Media & Campaigns
-    </h3>
-
-    <small>
-      Digital / Campaigns / Content
-    </small>
-
-  </div>
-
-
-  <div class="service reveal">
-
-    <span class="service-num">
-      05
-    </span>
-
-    <h3>
-      Print & Editorial
-    </h3>
-
-    <small>
-      Layout / Print / Communication
-    </small>
-
-  </div>
-
-
 </section>
-
 
 <!-- =========================================================
-     ARCHITECTURE
+     ABOUT — SHEET 06 (part 1)
 ========================================================= -->
-
-<section
-  class="architecture"
-  id="architecture">
-
-
-  <div class="architecture-head">
-
-
-    <span class="eyebrow reveal">
-      Architecture / 03
-    </span>
-
-
-    <div
-      class="architecture-title
-             observe-motion">
-
-
-      <div class="architecture-line">
-        ARCHI
-      </div>
-
-
-      <div class="architecture-line">
-        TECTURE
-      </div>
-
-
+<section class="sheet" id="about">
+  <div class="shell">
+    <div class="sheet-tag">
+      <span class="no">Sheet <b>06 / 06</b> — Personnel</span>
+      <span class="no">Profile</span>
     </div>
 
-
-  </div>
-
-
-  <div class="architecture-body">
-
-
-    <p
-      class="architecture-copy
-             reveal">
-
-      <strong>
-        Architecture shapes the way
-        I approach visual design.
-      </strong>
-
-      Working with structure,
-      proportion, hierarchy and space
-      influences how I build both
-      architectural concepts and
-      visual communication systems.
-
-    </p>
-
-
-    <div class="arch-list reveal">
-
-
-      <div class="arch-row">
-
-        <span>01</span>
-
-        <strong>
-          Architectural Design
-        </strong>
-
-        <small>
-          Concept / Space / Form
-        </small>
-
+    <div class="about-grid reveal-group">
+      <div class="about-copy">
+        <p>
+          I'm an architect by training and a graphic designer by
+          daily practice, based in Syria and working with clients
+          remotely across print, digital and built environments.
+        </p>
+        <p>
+          Most of my current interest sits in commercial and retail
+          design — the layer where a brand's identity has to survive
+          contact with construction, materials and daylight.
+        </p>
       </div>
 
-
-      <div class="arch-row">
-
-        <span>02</span>
-
-        <strong>
-          CAD & BIM
-        </strong>
-
-        <small>
-          AutoCAD / Revit
-        </small>
-
+      <div class="spec-table">
+        <div class="spec-row"><span class="k">Role</span><span class="v">Graphic Designer & Architect</span></div>
+        <div class="spec-row"><span class="k">Based</span><span class="v">Syria</span></div>
+        <div class="spec-row"><span class="k">Focus</span><span class="v">Retail, hospitality, brand identity</span></div>
+        <div class="spec-row"><span class="k">Tools</span><span class="v">AutoCAD, SketchUp, Adobe Suite</span></div>
+        <div class="spec-row"><span class="k">Availability</span><span class="v">Open to new projects</span></div>
       </div>
-
-
-      <div class="arch-row">
-
-        <span>03</span>
-
-        <strong>
-          Visualization
-        </strong>
-
-        <small>
-          Lumion / Presentation
-        </small>
-
-      </div>
-
-
-      <div class="arch-row">
-
-        <span>04</span>
-
-        <strong>
-          Spatial Thinking
-        </strong>
-
-        <small>
-          Structure / Experience
-        </small>
-
-      </div>
-
-
-      <div class="arch-row">
-
-        <span>05</span>
-
-        <strong>
-          Diagrams & Presentation
-        </strong>
-
-        <small>
-          Layout / Visual Communication
-        </small>
-
-      </div>
-
-
     </div>
-
-
   </div>
-
-
-  <div class="arch-placeholder reveal">
-
-
-    <h3>
-
-      SELECTED<br>
-      ARCHITECTURE<br>
-      PROJECTS.
-
-    </h3>
-
-
-    <p>
-
-      Architectural projects,
-      drawings, diagrams,
-      visualizations and case studies
-      will be added here.
-
-    </p>
-
-
-  </div>
-
-
 </section>
-
 
 <!-- =========================================================
      CONTACT
 ========================================================= -->
-
-<section
-  class="contact"
-  id="contact">
-
-
-  <div
-    class="contact-motion
-           observe-motion">
-
-
-    <div
-      class="contact-line
-             contact-left">
-
-      LET'S WORK
-
+<section class="sheet contact" id="contact">
+  <div class="shell">
+    <div class="sheet-tag">
+      <span class="no">Closing Sheet — Contact</span>
+      <span class="no">2026</span>
     </div>
 
+    <h2>Let's build<br>something.</h2>
 
-    <div
-      class="contact-line
-             contact-right">
+    <div class="contact-grid reveal-group">
 
-      TOGETHER
+      <div class="contact-primary">
+        <span class="mono-label">Email</span>
+        <a href="mailto:mohammed2003hawaj2003@gmail.com">mohammed2003hawaj2003@gmail.com</a>
+      </div>
 
+      <div class="contact-links">
+        <a href="https://sy.linkedin.com/in/mohammed-hawaj-6a82691b6" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>
+        <a href="https://www.instagram.com/arch__moo" target="_blank" rel="noopener noreferrer">Instagram <span>↗</span></a>
+        <a href="https://www.facebook.com/share/19Y4QxVGUS/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook <span>↗</span></a>
+        <a href="https://wa.me/963957854313" target="_blank" rel="noopener noreferrer">WhatsApp <span>↗</span></a>
+      </div>
     </div>
 
-
+    <footer class="footer">
+      <span>Mohammed Hawaj © 2026</span>
+      <span>Graphic Designer & Architect</span>
+      <span>Portfolio — End of Set</span>
+    </footer>
   </div>
-
-
-  <div
-    class="email-area
-           reveal">
-
-
-    <p>
-      Have a project or opportunity?
-    </p>
-
-
-    <a
-      class="email-link"
-      href="mailto:mohammed2003hawaj2003@gmail.com">
-
-      SAY HELLO ↗
-
-    </a>
-
-
-  </div>
-
-
-  <div class="socials">
-
-
-    <a
-      class="social"
-      href="https://sy.linkedin.com/in/mohammed-hawaj-6a82691b6"
-      target="_blank"
-      rel="noopener noreferrer">
-
-      <small>
-        LinkedIn
-      </small>
-
-      <strong>
-        Mohammed Hawaj
-      </strong>
-
-      <span>↗</span>
-
-    </a>
-
-
-    <a
-      class="social"
-      href="https://www.instagram.com/arch__moo"
-      target="_blank"
-      rel="noopener noreferrer">
-
-      <small>
-        Instagram
-      </small>
-
-      <strong>
-        @arch__moo
-      </strong>
-
-      <span>↗</span>
-
-    </a>
-
-
-    <a
-      class="social"
-      href="https://www.facebook.com/share/19Y4QxVGUS/?mibextid=wwXIfr"
-      target="_blank"
-      rel="noopener noreferrer">
-
-      <small>
-        Facebook
-      </small>
-
-      <strong>
-        Mohammed Hawaj
-      </strong>
-
-      <span>↗</span>
-
-    </a>
-
-
-    <a
-      class="social"
-      href="https://wa.me/963957854313"
-      target="_blank"
-      rel="noopener noreferrer">
-
-      <small>
-        WhatsApp
-      </small>
-
-      <strong>
-        +963 957 854 313
-      </strong>
-
-      <span>↗</span>
-
-    </a>
-
-
-    <a
-      class="social"
-      href="mailto:mohammed2003hawaj2003@gmail.com">
-
-      <small>
-        Email
-      </small>
-
-      <strong>
-        mohammed2003hawaj2003@gmail.com
-      </strong>
-
-      <span>↗</span>
-
-    </a>
-
-
-  </div>
-
-
-  <footer class="footer">
-
-
-    <span>
-      Mohammed Hawaj © 2026
-    </span>
-
-
-    <span>
-      Graphic Designer & Architect
-    </span>
-
-
-    <span>
-      Portfolio
-    </span>
-
-
-  </footer>
-
-
 </section>
 
-
 <script>
-
-
-/* =========================================================
-   HERO ROTATING WORDS
-========================================================= */
-
-const rotatingWords = [
-
-  "IDENTITY",
-
-  "RETAIL",
-
-  "VISUAL COMMUNICATION",
-
-  "ARCHITECTURE",
-
-  "SPACE",
-
-  "VISUALIZATION"
-
-];
-
-
-const rotatingWord =
-  document.getElementById(
-    "rotatingWord"
-  );
-
-
-let rotatingIndex = 0;
-
-
-setInterval(
-  () => {
-
-
-    rotatingWord.animate(
-
-      [
-
-        {
-          opacity:1,
-          transform:"translateY(0)"
-        },
-
-        {
-          opacity:0,
-          transform:"translateY(-9px)"
-        }
-
-      ],
-
-      {
-
-        duration:220,
-
-        fill:"forwards"
-
-      }
-
-    ).onfinish = () => {
-
-
-      rotatingIndex =
-
-        (
-          rotatingIndex + 1
-        )
-
-        %
-
-        rotatingWords.length;
-
-
-      rotatingWord.textContent =
-
-        rotatingWords[
-          rotatingIndex
-        ];
-
-
-      rotatingWord.animate(
-
-        [
-
-          {
-            opacity:0,
-            transform:"translateY(9px)"
-          },
-
-          {
-            opacity:1,
-            transform:"translateY(0)"
-          }
-
-        ],
-
-        {
-
-          duration:330,
-
-          fill:"forwards"
-
-        }
-
-      );
-
-
-    };
-
-
-  },
-  1900
-);
-
-
-/* =========================================================
-   CUSTOM CURSOR
-========================================================= */
-
-const cursor =
-  document.getElementById(
-    "cursor"
-  );
-
-
-document.addEventListener(
-  "mousemove",
-  event => {
-
-
-    cursor.style.left =
-      event.clientX + "px";
-
-
-    cursor.style.top =
-      event.clientY + "px";
-
-
-  }
-);
-
-
-document
-  .querySelectorAll(
-    "a, .portrait"
-  )
-  .forEach(
-    element => {
-
-
-      element.addEventListener(
-        "mouseenter",
-        () => {
-
-          cursor
-            .classList
-            .add("active");
-
-        }
-      );
-
-
-      element.addEventListener(
-        "mouseleave",
-        () => {
-
-          cursor
-            .classList
-            .remove("active");
-
-        }
-      );
-
-
+const groups = document.querySelectorAll('.reveal-group');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
     }
-  );
-
-
-/* =========================================================
-   HERO MOUSE MOVEMENT
-========================================================= */
-
-const hero =
-  document.getElementById(
-    "home"
-  );
-
-
-const heroObject =
-  document.getElementById(
-    "heroObject"
-  );
-
-
-hero.addEventListener(
-  "mousemove",
-  event => {
-
-
-    const rect =
-      hero.getBoundingClientRect();
-
-
-    const x =
-
-      (
-        event.clientX
-        - rect.left
-      )
-
-      /
-
-      rect.width
-
-      -
-
-      .5;
-
-
-    const y =
-
-      (
-        event.clientY
-        - rect.top
-      )
-
-      /
-
-      rect.height
-
-      -
-
-      .5;
-
-
-    heroObject.style.transform =
-
-      `translate(
-        ${x * 50}px,
-        ${y * 50}px
-      )`;
-
-
-  }
-);
-
-
-hero.addEventListener(
-  "mouseleave",
-  () => {
-
-
-    heroObject.style.transform =
-      "translate(0,0)";
-
-
-  }
-);
-
-
-/* =========================================================
-   PORTRAIT SLIDER
-========================================================= */
-
-const portrait =
-  document.getElementById(
-    "portrait"
-  );
-
-
-const portraitSlides =
-  document.querySelectorAll(
-    ".portrait-slide"
-  );
-
-
-const portraitCounter =
-  document.getElementById(
-    "portraitCounter"
-  );
-
-
-let currentPortrait = 0;
-
-let portraitTimer;
-
-
-/* COUNTER */
-
-function updatePortraitCounter(){
-
-
-  portraitCounter.textContent =
-
-    String(
-      currentPortrait + 1
-    )
-    .padStart(
-      2,
-      "0"
-    )
-
-    +
-
-    " / "
-
-    +
-
-    String(
-      portraitSlides.length
-    )
-    .padStart(
-      2,
-      "0"
-    );
-
-
-}
-
-
-/* CHANGE IMAGE */
-
-function changePortrait(){
-
-
-  portraitSlides[
-    currentPortrait
-  ]
-  .classList
-  .remove(
-    "active"
-  );
-
-
-  currentPortrait =
-
-    (
-      currentPortrait + 1
-    )
-
-    %
-
-    portraitSlides.length;
-
-
-  portraitSlides[
-    currentPortrait
-  ]
-  .classList
-  .add(
-    "active"
-  );
-
-
-  updatePortraitCounter();
-
-
-}
-
-
-/* START */
-
-function startPortraitSlider(){
-
-
-  stopPortraitSlider();
-
-
-  portraitTimer =
-    setInterval(
-      changePortrait,
-      3200
-    );
-
-
-}
-
-
-/* STOP */
-
-function stopPortraitSlider(){
-
-
-  if(
-    portraitTimer
-  ){
-
-    clearInterval(
-      portraitTimer
-    );
-
-  }
-
-
-}
-
-
-startPortraitSlider();
-
-
-portrait.addEventListener(
-  "mouseenter",
-  stopPortraitSlider
-);
-
-
-portrait.addEventListener(
-  "mouseleave",
-  startPortraitSlider
-);
-
-
-/* =========================================================
-   NORMAL REVEALS
-========================================================= */
-
-const revealObserver =
-  new IntersectionObserver(
-
-    entries => {
-
-
-      entries.forEach(
-        entry => {
-
-
-          if(
-            entry.isIntersecting
-          ){
-
-
-            entry.target
-              .classList
-              .add(
-                "visible"
-              );
-
-
-          }
-
-
-        }
-      );
-
-
-    },
-
-    {
-
-      threshold:.14
-
-    }
-
-  );
-
-
-document
-  .querySelectorAll(
-    ".reveal"
-  )
-  .forEach(
-    element => {
-
-
-      revealObserver.observe(
-        element
-      );
-
-
-    }
-  );
-
-
-/* =========================================================
-   LARGE SIDE MOTION
-========================================================= */
-
-const motionObserver =
-  new IntersectionObserver(
-
-    entries => {
-
-
-      entries.forEach(
-        entry => {
-
-
-          if(
-            entry.isIntersecting
-          ){
-
-
-            entry.target
-              .classList
-              .add(
-                "visible"
-              );
-
-
-          }
-
-
-        }
-      );
-
-
-    },
-
-    {
-
-      threshold:.2
-
-    }
-
-  );
-
-
-document
-  .querySelectorAll(
-    ".observe-motion"
-  )
-  .forEach(
-    element => {
-
-
-      motionObserver.observe(
-        element
-      );
-
-
-    }
-  );
-
-
+  });
+},{threshold:.15});
+groups.forEach(g => observer.observe(g));
 </script>
 
-
 </body>
-
 </html>
