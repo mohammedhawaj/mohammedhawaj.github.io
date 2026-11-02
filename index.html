@@ -600,6 +600,77 @@ img{
   line-height:1.7;
 }
 
+  /* =========================================================
+   WHAT THEY SAY STYLE
+========================================================= */
+.recommendations-section-el { 
+  padding: 145px 4vw; 
+  background: var(--black); 
+  border-top: 1px solid var(--line-light); 
+}
+.testimonials-power-grid { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 30px; 
+  justify-content: center; 
+  margin-top: 60px; 
+}
+.testimonial-card-item { 
+  background: var(--black-soft); 
+  border: 1px solid var(--line-light); 
+  padding: 40px 30px; 
+  position: relative; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+  flex: 1 1 calc(33.333% - 30px); 
+  min-width: 300px; 
+  max-width: calc(33.333% - 20px); 
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+.testimonial-card-item:hover { 
+  transform: translateY(-5px); 
+  border-color: var(--cream); 
+}
+.quote-mark { 
+  font-size: 4.5rem; 
+  font-family: serif; 
+  color: rgba(255,255,255,0.04); 
+  position: absolute; 
+  top: -5px; 
+  left: 20px; 
+  line-height: 1; 
+  user-select: none; 
+}
+.quote-text { 
+  font-size: 13px; 
+  line-height: 1.65; 
+  color: var(--cream-soft); 
+  font-style: italic; 
+  margin: 0 0 25px 0; 
+  position: relative; 
+  z-index: 1; 
+}
+.author-info strong { 
+  display: block; 
+  font-size: 14px; 
+  color: var(--cream); 
+  margin-bottom: 3px; 
+}
+.author-info span { 
+  display: block; 
+  font-size: 11px; 
+  color: var(--gray); 
+  line-height: 1.4; 
+}
+@media (max-width: 1024px) { 
+  .testimonial-card-item { flex: 1 1 calc(50% - 30px); max-width: calc(50% - 15px); } 
+}
+@media (max-width: 768px) { 
+  .testimonial-card-item { flex: 1 1 100%; max-width: 100%; padding: 30px 20px; } 
+}
+
+
 
 /* =========================================================
    ABOUT MOTION
@@ -1977,6 +2048,48 @@ img{
 
 </section>
 
+  <!-- WHAT THEY SAY SECTION -->
+  <section id="what-they-say" class="recommendations-section-el">
+    <div class="small-label">Endorsements / 03</div>
+    <h2 style="font-family: var(--display); font-size: clamp(40px,5.4vw,88px); font-weight: 500; margin-top: 20px; letter-spacing: -.055em; color: var(--cream);">What They Say.</h2>
+    
+    <div class="testimonials-power-grid">
+      <!-- Card 1: Dr. Amal Sobhieh -->
+      <div class="testimonial-card-item">
+        <span class="quote-mark">“</span>
+        <p class="quote-text">"Mohammad has an exceptional foundation in architectural representation, perspective drawing, and the mastery of light, shadow, and materials. His attention to detail and clear design thinking allow his work to progress naturally from concept to complete spatial form."</p>
+        <div class="author-info"><strong>Dr. Amal Sobhieh</strong><span>Doctor and Instructor, Faculty of Architecture, IUST / Dean of Architecture, BUD</span></div>
+      </div>
+
+      <!-- Card 2: Dr. Ruba Alloush -->
+      <div class="testimonial-card-item">
+        <span class="quote-mark">“</span>
+        <p class="quote-text">"Mohammad has a remarkable speed in understanding complex architectural ideas and translating them into logical design decisions. His mature analysis of architectural context and his ability to connect reasoning with design development truly distinguish his work."</p>
+        <div class="author-info"><strong>Dr. Ruba Alloush</strong><span>Graduation Project Supervisor, International University for Science and Technology - IUST</span></div>
+      </div>
+
+      <!-- Card 3: Dr. Khuloud Sadek -->
+      <div class="testimonial-card-item">
+        <span class="quote-mark">“</span>
+        <p class="quote-text">"Mohammad has a remarkable ability to translate theoretical architectural concepts into highly structured, clear, and distinctive visual presentations. His work stands out for its clarity and exceptional communicative qualities."</p>
+        <div class="author-info"><strong>Dr. Khuloud Sadek</strong><span>Faculty of Architecture, International University for Science and Technology - IUST</span></div>
+      </div>
+
+      <!-- Card 4: Hawwaij Charity Foundation -->
+      <div class="testimonial-card-item">
+        <span class="quote-mark">“</span>
+        <p class="quote-text">"Mohammed has demonstrated exceptional leadership and practical problem-solving as a Campaigns Manager, leading over 500 hours of community service. He possesses a strong commitment to driving positive social impact and managing large-scale humanitarian initiatives successfully."</p>
+        <div class="author-info"><strong>Board of Trustees</strong><span>Hawwaij Charity Foundation - Damascus, Syria</span></div>
+      </div>
+
+      <!-- Card 5: Eng. Rawda Alsalkiny -->
+      <div class="testimonial-card-item">
+        <span class="quote-mark">“</span>
+        <p class="quote-text">"Mohammad stands out for his critical architectural thinking and precision. He possesses a unique ability to connect conceptual thinking with practical spatial organization, giving his design decisions deep cultural and social meaning."</p>
+        <div class="author-info"><strong>Eng. Rawda Alsalkiny</strong><span>Instructor, Faculty of Architecture, International University for Science and Technology - IUST</span></div>
+      </div>
+    </div>
+  </section>
 
 <!-- =========================================================
      ABOUT
